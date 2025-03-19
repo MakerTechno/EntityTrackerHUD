@@ -2,25 +2,9 @@ package nowebsite.makertechno.terra_ethud.algorithm;
 
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public class MercatorProjectMap {
-    /**
-     * 墨卡托投影，将单位向量投影到平面
-     *
-     * @param vec 任意链接向量 (Vec3)
-     * @return 平面坐标 (u, v)
-     */
-    @Contract("_ -> new")
-    public static @NotNull Vec2 mercatorProject(@NotNull Vec3 vec) {
-        Vec3 vTarget = vec.normalize();
-        // 墨卡托投影公式
-        double u = Math.atan2(vTarget.z, vTarget.x); // 水平坐标(经度)
-        double v = Math.log(Math.tan(Math.PI / 4 + Math.asin(vTarget.y) / 2)); // 垂直坐标(纬度)
-        return new Vec2((float) u, (float) v);
-    }
-
+public class DirProjector {
     public static @NotNull Vec3 eyeAlignedProjection(@NotNull Vec3 relativeVec, @NotNull Vec3 playerEyeSight) {
         // 计算玩家视角的水平角度
         double playerYaw = Math.atan2(playerEyeSight.z, playerEyeSight.x);
@@ -30,13 +14,12 @@ public class MercatorProjectMap {
         return new Vec3(rotatedX, relativeVec.y, rotatedZ);
     }
 
-
     // 计算玩家和生物位置的投影并计算角度
-    public static double @NotNull [] calculateAngle(Vec3 playerPos, Vec3 playerEyeSight, @NotNull Vec3 entityPos) {
+    public static double @NotNull [] calculateAngle(Vec3 playerPos, Vec3 playerEyeSight, @NotNull Vec3 entityPos, @NotNull ProjectToAngleAndDistance projector) {
         // 计算玩家位置的投影
-        Vec2 base = mercatorProject(eyeAlignedProjection(playerEyeSight, playerEyeSight));
+        Vec2 base = projector.project(eyeAlignedProjection(playerEyeSight, playerEyeSight));
         // 计算生物位置的投影
-        Vec2 target = mercatorProject(eyeAlignedProjection(entityPos.subtract(playerPos), playerEyeSight));
+        Vec2 target = projector.project(eyeAlignedProjection(entityPos.subtract(playerPos), playerEyeSight));
 
         // 计算连线角度
         Vec2 result = target.add(base.negated());
