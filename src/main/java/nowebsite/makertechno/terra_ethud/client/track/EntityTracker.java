@@ -6,18 +6,18 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.entity.PartEntity;
-import nowebsite.makertechno.terra_ethud.algorithm.Cursors;
 import nowebsite.makertechno.terra_ethud.client.gui.TGui;
 import nowebsite.makertechno.terra_ethud.config.TConfig;
-import oshi.util.tuples.Pair;
+import com.mojang.datafixers.util.Pair;
+import nowebsite.makertechno.terra_ethud.define.TCursor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EntityTracker {
-    private static final List<Pair<Vec3, Cursors>> ENTITIES_POSITIONS = new ArrayList<>();
+    private static final List<Pair<Vec3, TCursor>> ENTITIES_POSITIONS = new ArrayList<>();
     //private static int count = 0;
-    public static void addEntitiesPositions(List<Pair<Vec3, Cursors>> positions) {
+    public static void addEntitiesPositions(List<Pair<Vec3, TCursor>> positions) {
         synchronized (ENTITIES_POSITIONS) {
             ENTITIES_POSITIONS.addAll(positions);
         }
@@ -27,7 +27,7 @@ public class EntityTracker {
             ENTITIES_POSITIONS.clear();
         }
     }
-    public static List<Pair<Vec3, Cursors>> getEntitiesPositions() {
+    public static List<Pair<Vec3, TCursor>> getEntitiesPositions() {
         return ENTITIES_POSITIONS;
     }
 
@@ -41,9 +41,9 @@ public class EntityTracker {
         Player player = TGui.getCameraPlayer(minecraft);
         if (minecraft.level != null &&  player != null) {
             clearEntitiesPositions();
-            for (Pair<EntityType<?>, Cursors> pair: TConfig.pointerWithEntities) {
-                List<Pair<Vec3, Cursors>> positions = minecraft.level.getEntities(
-                    pair.getA(),
+            for (Pair<EntityType<?>, TCursor> pair: TConfig.pointerWithEntities) {
+                List<Pair<Vec3, TCursor>> positions = minecraft.level.getEntities(
+                    pair.getFirst(),
                     new AABB(
                         player.getX() - 96.0D,
                         player.getY() - 96.0D,
@@ -55,9 +55,9 @@ public class EntityTracker {
                     entity -> true
                 )
                     .stream()
-                    .map(entity -> new Pair<>(entity, pair.getB()))
-                    .filter(pair1 -> !(pair1.getA() instanceof PartEntity))
-                    .map(pair1 -> new Pair<>(pair1.getA().position(), pair1.getB()))
+                    .map(entity -> new Pair<>(entity, pair.getSecond()))
+                    .filter(pair1 -> !(pair1.getFirst() instanceof PartEntity))
+                    .map(pair1 -> new Pair<>(pair1.getFirst().position(), pair1.getSecond()))
                     .toList();
                 addEntitiesPositions(positions);
             }
