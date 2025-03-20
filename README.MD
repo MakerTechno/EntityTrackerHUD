@@ -1,4 +1,4 @@
-# Terra-EntityTracking HUD (简体中文|[English](README_EN.MD))
+# Entity Tracker (简体中文|[English](README_EN.MD))
 这是一个用于在MC中跟踪实体的HUD模组。
 ### 工作原理
 使用墨卡托投影计算在2D屏幕上显示围绕十字准星的箭头以表示实体位置。
