@@ -1,0 +1,14 @@
+{
+  "entity_tracker.configuration.available": "开关",
+  "entity_tracker.configuration.available.tooltip": "启用或禁用跟踪指针",
+  "entity_tracker.configuration.mappingStyle": "映射样式",
+  "entity_tracker.configuration.mappingStyle.tooltip": "选择跟踪指针的样式\nCENTER_RELATIVE: 中心环绕型\nHEAD_FLAT: 顶部条型\nTRACK_FULL: 全屏边缘型\n",
+  "entity_tracker.configuration.projectAlgorithm": "投影算法",
+  "entity_tracker.configuration.projectAlgorithm.tooltip": "设置特定于\"中心环绕型\"指针的算法\nMERCATOR: 墨卡托投影\nAITOFF: 艾托夫投影\nWINKEL_TRIPLE: 温克尔三角投影\n",
+  "entity_tracker.configuration.section.entity.tracker.client.toml": "Entity Tracker",
+  "entity_tracker.configuration.section.entity.tracker.client.toml.title": "Entity Tracker 配置",
+  "entity_tracker.configuration.title": "实体追踪器设置",
+  "entity_tracker.configuration.tracking": "跟踪",
+  "entity_tracker.configuration.tracking.button": "跟踪实体的设置",
+  "entity_tracker.configuration.tracking.tooltip": "带有光标类型的实体类型列表，用\"|\"分隔"
+}
