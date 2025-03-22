@@ -31,14 +31,19 @@ public class TConfig
         .comment("The algorithm of the projection")
         .translation("entity_tracker.configuration.projectAlgorithm")
         .defineEnum("projectAlgorithm", ProjectAlgorithmLib.Type.AITOFF);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> ENTITY_TYPES = BUILDER
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> ENTITY_TYPES = BUILDER
         .comment("List of entity types with cursors, separated with \"|\"")
         .translation("entity_tracker.configuration.tracking")
         .defineList(
             "entityTypes|Pointer|EntityIcon",
             List.of(
                 "minecraft:ender_dragon|normal_red|ender_dragon_head",
-                "minecraft:wither|normal_white|wither_head"
+                "minecraft:wither|normal_white|wither_head",
+                "terra_entity:king_slime|normal_red|king_slime",
+                "terra_entity:eye_of_cthulhu|normal_red|eye_of_cthulhu",
+                "terra_entity:brain_of_cthulhu|normal_red|brain_of_cthulhu",
+                "terra_entity:eater_of_worlds|normal_red|eater_of_worlds",
+                "terra_entity:queen_bee|normal_red|queen_bee"
             ),
             () -> "minecraft:villager|normal_green|none",
             ConfigProcessor::isValidEntityBindCursor
