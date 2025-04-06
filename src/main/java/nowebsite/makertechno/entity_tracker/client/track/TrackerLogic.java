@@ -61,8 +61,8 @@ public class TrackerLogic {
                         pair.getFirst(),
                             new AABB(
                                 player.getX() - 64.0D,
-                                player.getY() - 64.0D,
-                                player.getZ() - 48.0D,
+                                player.getY() - 48.0D,
+                                player.getZ() - 64.0D,
                                 player.getX() + 64.0D,
                                 player.getY() + 64.0D,
                                 player.getZ() + 64.0D
