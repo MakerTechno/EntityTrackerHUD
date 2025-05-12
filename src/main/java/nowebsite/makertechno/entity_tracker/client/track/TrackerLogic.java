@@ -80,7 +80,7 @@ public class TrackerLogic {
     public static void triggerPositions() {
         setEntitiesPositions(
             ENTITIES.stream()
-                .map(pair -> new Pair<>(pair.getFirst().position(), pair.getSecond()))
+                .map(pair -> new Pair<>(pair.getFirst().getRopeHoldPosition(0), pair.getSecond()))
                 .collect(Collectors.toSet())
         );
     }
