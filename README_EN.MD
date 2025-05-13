@@ -11,7 +11,7 @@ See [ALGORITHM (Chinese only)](ALGORITHM.MD) for details.
 ### Author
 [@MakerTechno](https://github.com/MakerTechno)
 ### License
-[GPLv3](https://www.gnu.org/licenses/gpl-3.0.html)
+[LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.html)
 ### Dependencies
 None
 ### Collaboration

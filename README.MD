@@ -11,7 +11,7 @@
 ### 作者
 [@MakerTechno](https://github.com/MakerTechno)
 ### 协议
-[GPLv3](https://www.gnu.org/licenses/gpl-3.0.html)
+[LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.html)
 ### 依赖
 无
 ### 联动

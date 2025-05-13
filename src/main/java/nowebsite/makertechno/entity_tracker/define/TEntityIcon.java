@@ -10,7 +10,8 @@ public enum TEntityIcon implements TRenderItem {
     EYE_OF_CTHULHU("eye_of_cthulhu","eye_of_cthulhu.png", 16, 16),
     BRAIN_OF_CTHULHU("brain_of_cthulhu","brain_of_cthulhu.png", 16, 16),
     QUEEN_BEE("queen_bee","queen_bee.png", 16, 16),
-    EATER_OF_WORLDS("eater_of_worlds","eater_of_worlds.png", 16, 16),;
+    EATER_OF_WORLDS("eater_of_worlds","eater_of_worlds.png", 16, 16),
+    POINTER_X("point_x","point_x.png", 16, 16),;
     private final String name;
     private final ResourceLocation location;
     private final int width, height;

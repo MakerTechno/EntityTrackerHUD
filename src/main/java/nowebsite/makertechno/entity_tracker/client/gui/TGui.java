@@ -20,7 +20,7 @@ public class TGui implements LayeredDraw.Layer {
 
     public TGui(Minecraft minecraft) {
         this.minecraft = minecraft;
-        this.layerManager.add(TGuiLayers.POINTER, this::rendererTargetPointer);
+        this.layerManager.add(TGuiStatics.POINTER, this::rendererTargetPointer);
     }
     @Nullable
     public static Player getCameraPlayer(@NotNull Minecraft minecraft) {
@@ -35,7 +35,13 @@ public class TGui implements LayeredDraw.Layer {
 
     private void renderDir(GuiGraphics guiGraphics, Player player) {
         TrackerLogic.getEntitiesPositions().forEach(
-            vec3CursorsPair -> RendererToScreen.centerRelativePointer(guiGraphics, player, vec3CursorsPair)
+            vec3CursorsPair -> {
+                switch (TConfig.mappingStyle) {
+                    case CENTER_RELATIVE -> RendererToScreen.centerRelativePointer(guiGraphics, player, vec3CursorsPair);
+                    case HEAD_FLAT -> {}
+                    case TRACK_FULL -> RendererToScreen.fullScreenPointer(guiGraphics, player, vec3CursorsPair, minecraft.gameRenderer);
+                }
+            }
         );
     }
 

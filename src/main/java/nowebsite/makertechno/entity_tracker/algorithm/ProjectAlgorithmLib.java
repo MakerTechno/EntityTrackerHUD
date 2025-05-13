@@ -71,6 +71,8 @@ public class ProjectAlgorithmLib {
         return winkelTripleProject(getLatitudeLongitude(vec));
     }
 
+
+    @SuppressWarnings("unused")
     public enum Type {
         MERCATOR(ProjectAlgorithmLib::mercatorProject),
         AITOFF(ProjectAlgorithmLib::aitoffProject),
