@@ -2,10 +2,10 @@ package nowebsite.makertechno.entity_tracker.tool4c;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.entity.EntityType;
+import nowebsite.makertechno.entity_tracker.define.TCursor;
 import nowebsite.makertechno.entity_tracker.define.TEntityIcon;
 import nowebsite.makertechno.entity_tracker.define.TEnumUtils;
 import nowebsite.makertechno.entity_tracker.define.TPointer;
-import nowebsite.makertechno.entity_tracker.define.TCursor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 
 public final class ConfigProcessor {
     public static boolean isValidEntityBindCursor(Object o) {
-        if (!(o instanceof String)) return false;
-        String[] split = ((String) o).split("\\|");
+        if (!(o instanceof String s)) return false;
+        String[] split = s.split("\\|");
         if (split.length != 3) return false;
         Optional<EntityType<?>> optional = EntityType.byString(split[0]);
         if (optional.isEmpty()) return false;
