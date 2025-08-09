@@ -6,21 +6,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.client.gui.GuiLayerManager;
 import nowebsite.makertechno.entity_tracker.config.TConfig;
 import nowebsite.makertechno.entity_tracker.client.track.TrackerLogic;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings("UnstableApiUsage")
 public class TGui implements LayeredDraw.Layer {
     private final Minecraft minecraft;
-    private final GuiLayerManager layerManager = new GuiLayerManager();
 
     public TGui(Minecraft minecraft) {
         this.minecraft = minecraft;
-        this.layerManager.add(TGuiStatics.POINTER, this::rendererTargetPointer);
     }
     @Nullable
     public static Player getCameraPlayer(@NotNull Minecraft minecraft) {
@@ -47,7 +43,7 @@ public class TGui implements LayeredDraw.Layer {
 
     public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
         RenderSystem.enableDepthTest();
-        this.layerManager.render(guiGraphics, deltaTracker);
+        rendererTargetPointer(guiGraphics, deltaTracker);
         RenderSystem.disableDepthTest();
     }
 }
