@@ -1,4 +1,4 @@
-name: Build
+name: Build Check
 
 on: [push, pull_request]
 
@@ -22,3 +22,4 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
         with:
           arguments: build
+          project-prop: nativeBuild=true
