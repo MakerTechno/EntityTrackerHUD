@@ -1,4 +1,4 @@
-name: Build
+name: Build Check
 
 on: [push, pull_request]
 
@@ -21,4 +21,4 @@ jobs:
       - name: Build with Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
-          arguments: build
+          arguments: build -PnativeBuild=true

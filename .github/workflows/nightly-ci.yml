@@ -1,0 +1,41 @@
+name: Nightly Build
+on:
+  workflow_dispatch:
+  schedule:
+    # Run this job every day at 20:01 AM UTC+8
+    - cron: "1 0 * * *"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: 21
+
+      - name: Generate assets
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          arguments: runData -PnativeBuild=true
+
+      - name: Build repo
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          arguments: build -PnativeBuild=true
+
+      - name: Create nightly release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GH_TOKEN }}
+          automatic_release_tag: nightly
+          prerelease: true
+          title: "EntityTrackerHUD Automate Build"
+          files: |
+            ./build/libs/*.jar
