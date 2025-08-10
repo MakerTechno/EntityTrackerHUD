@@ -23,7 +23,7 @@ jobs:
 
       - name: Generate assets
         run: |
-          ./gradlew runData
+          ./gradlew runData -PnativeBuild=true
 
       - name: Build Repo
         run: ./gradlew build -PnativeBuild=true
