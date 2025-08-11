@@ -2,8 +2,8 @@ name: Nightly Build
 on:
   workflow_dispatch:
   schedule:
-    # Run this job every day at 20:01 AM UTC+8
-    - cron: "1 0 * * *"
+    # Run this job every day
+    - cron: "30 0 * * *"
 jobs:
   build:
     runs-on: ubuntu-latest
