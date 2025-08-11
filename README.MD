@@ -17,9 +17,3 @@
 ### 联动
 [汇流来世 Confluence Of The Afterlife](https://github.com/MagicHarp/confluence)
 
-## 本地构建
-本项目作为单独项目构建时，需要在你的项目库中添加`gradle.local.properties`文件，并在文件中写入:
-```properties
-nativeBuild=true
-```
-本项目作为子项目构建时，请在主项目中定义moddev插件的版本号
