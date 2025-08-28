@@ -5,8 +5,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.world.entity.player.Player;
-import nowebsite.makertechno.entity_tracker.config.TConfig;
 import nowebsite.makertechno.entity_tracker.client.track.TrackerLogic;
+import nowebsite.makertechno.entity_tracker.config.TConfig;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
