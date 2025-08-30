@@ -1,3 +1,4 @@
+/*
 package nowebsite.makertechno.entity_tracker.client.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -8,17 +9,18 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import nowebsite.makertechno.entity_tracker.algorithm.CameraProjector;
-import nowebsite.makertechno.entity_tracker.algorithm.DirProjector;
-import nowebsite.makertechno.entity_tracker.config.TConfig;
-import nowebsite.makertechno.entity_tracker.define.TCursor;
-import nowebsite.makertechno.entity_tracker.define.TEntityIcon;
-import nowebsite.makertechno.entity_tracker.define.TPointer;
+import nowebsite.makertechno.entity_tracker.client.gui.components.TRenderComponent;
+import nowebsite.makertechno.entity_tracker.core.track.algorithm.CameraProjector;
+import nowebsite.makertechno.entity_tracker.core.track.algorithm.DirProjector;
+import nowebsite.makertechno.entity_tracker.core.config.TConfig;
+import nowebsite.makertechno.entity_tracker.client.gui.components.TRelativeCursor;
+import nowebsite.makertechno.entity_tracker.client.gui.components.TEntityIcon;
+import nowebsite.makertechno.entity_tracker.client.gui.components.TPointer;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4fStack;
 
 public class RendererToScreen {
-    public static void centerRelativePointer(@NotNull GuiGraphics guiGraphics, @NotNull Player player, @NotNull Pair<Vec3, TCursor> vec3CursorsPair) {
+    public static void centerRelativePointer(@NotNull GuiGraphics guiGraphics, @NotNull Player player, @NotNull Pair<Vec3, TRenderComponent> vec3CursorsPair) {
         double[] arcAndDist = DirProjector.calculateAngle(
             player.getEyePosition(),
             player.getViewVector(1f),
@@ -54,7 +56,9 @@ public class RendererToScreen {
         matrix4fStack.translate(0, -pickDirect, 0);
         RenderSystem.applyModelViewMatrix();
 
-        /* go on */
+        */
+/* go on *//*
+
         guiGraphics.blit(
             pointer.getLocation(),
             0, 0,
@@ -62,7 +66,9 @@ public class RendererToScreen {
             pointer.getWidth(), pointer.getHeight(),
             pointer.getWidth(), pointer.getHeight()
         );
-        /* end of pointer rend */
+        */
+/* end of pointer rend *//*
+
 
         if (icon != TEntityIcon.NONE) {
             // roll back
@@ -77,7 +83,9 @@ public class RendererToScreen {
 
             RenderSystem.applyModelViewMatrix();
 
-            /* go on */
+            */
+/* go on *//*
+
             guiGraphics.blit(
                 icon.getLocation(),
                 0, 0,
@@ -85,7 +93,9 @@ public class RendererToScreen {
                 icon.getWidth(), icon.getHeight(),
                 icon.getWidth(), icon.getHeight()
             );
-            /* end of icon rend */
+            */
+/* end of icon rend *//*
+
             RenderSystem.resetTextureMatrix();
         }
 
@@ -97,7 +107,7 @@ public class RendererToScreen {
         RenderSystem.disableBlend();
     }
 
-    public static void fullScreenPointer(@NotNull GuiGraphics guiGraphics,@NotNull Player player, @NotNull Pair<Vec3, TCursor> vec3CursorsPair, GameRenderer renderer) {
+    public static void fullScreenPointer(@NotNull GuiGraphics guiGraphics, @NotNull Player player, @NotNull Pair<Vec3, TRelativeCursor> vec3CursorsPair, GameRenderer renderer) {
         float[] projScrPoint = CameraProjector.projectToScreen(
             renderer,
             vec3CursorsPair.getFirst(),
@@ -106,7 +116,7 @@ public class RendererToScreen {
             guiGraphics.guiWidth(),
             guiGraphics.guiHeight()
         );
-        TCursor cursor = vec3CursorsPair.getSecond();
+        TRelativeCursor cursor = vec3CursorsPair.getSecond();
         TEntityIcon icon = cursor.icon();
 
         float alpha = 1;
@@ -131,7 +141,9 @@ public class RendererToScreen {
 
         if (icon != TEntityIcon.NONE) {
 
-            /* go on */
+            */
+/* go on *//*
+
             guiGraphics.blit(
                 icon.getLocation(),
                 0, 0,
@@ -139,7 +151,9 @@ public class RendererToScreen {
                 icon.getWidth(), icon.getHeight(),
                 icon.getWidth(), icon.getHeight()
             );
-            /* end of icon rend */
+            */
+/* end of icon rend *//*
+
             RenderSystem.resetTextureMatrix();
         }
 
@@ -150,3 +164,4 @@ public class RendererToScreen {
         RenderSystem.disableBlend();
     }
 }
+*/
