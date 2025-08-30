@@ -1,4 +1,4 @@
-package nowebsite.makertechno.entity_tracker.algorithm;
+package nowebsite.makertechno.entity_tracker.core.track.algorithm;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.GameRenderer;
