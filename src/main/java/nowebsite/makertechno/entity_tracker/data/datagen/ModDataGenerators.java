@@ -1,4 +1,4 @@
-package nowebsite.makertechno.entity_tracker.datagen;
+package nowebsite.makertechno.entity_tracker.data.datagen;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
