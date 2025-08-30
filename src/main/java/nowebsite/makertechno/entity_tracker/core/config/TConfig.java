@@ -77,7 +77,6 @@ public class TConfig {
 
                             "terra_entity:demon_eye|normal_red|none",
                             "terra_entity:flying_fish|normal_red|none",
-                            "terra_entity:drippler|normal_red|none",
                             "terra_entity:crimson_kemera|normal_red|none",
                             "terra_entity:eater_of_souls|normal_red|none",
                             "terra_entity:giant_worm|normal_red|none",
@@ -95,7 +94,13 @@ public class TConfig {
                             "terra_entity:cursed_skull|normal_red|none",
                             "terra_entity:dark_caster|normal_red|none",
                             "terra_entity:antlion_swarmer|normal_red|none",
-                            "terra_entity:giant_antlion_swarmer|normal_red|none"
+                            "terra_entity:giant_antlion_swarmer|normal_red|none",
+                            "terra_entity:wyvern|normal_red|none",
+                            "terra_entity:granite_elemental|normal_red|none",
+                            "terra_entity:ghost|normal_red|none",
+                            "terra_entity:fire_imp|normal_red|none",
+                            "terra_entity:demon|normal_red|none",
+                            "terra_entity:voodoo_demon|normal_red|none"
                     ),
                     () -> "minecraft:player|normal_green|none",
                     ConfigProcessor::isValidEntityBindCenterRelativeCursor
