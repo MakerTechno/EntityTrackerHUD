@@ -24,7 +24,7 @@ public class TConfig {
     private static final ModConfigSpec.BooleanValue AVAILABLE = BUILDER
             .comment("Enable tracking pointer")
             .translation("entity_tracker.configuration.available")
-            .define("Available", false);
+            .define("Available", true);
     private static final ModConfigSpec.DoubleValue GUI_SCALE = BUILDER
             .comment("Scale of cursor")
             .translation("entity_tracker.configuration.gui_scale")
@@ -52,7 +52,7 @@ public class TConfig {
     private static final ModConfigSpec.BooleanValue TRACK_FULL_AVAILABLE = BUILDER
             .comment("Enable full track icon display")
             .translation("entity_tracker.configuration.track_full_available")
-            .define("Track full available", true);
+            .define("Track full available", false);
     private static final ModConfigSpec.BooleanValue HEAD_FLAT_AVAILABLE = BUILDER
             .comment("Enable longitude icon display")
             .translation("entity_tracker.configuration.head_flat_available")
@@ -112,7 +112,7 @@ public class TConfig {
             .defineList(
                     "entityType|type:icon(|optionalPattern)",
                     List.of(
-                        "minecraft:wither|normal:normal_green"
+                        "minecraft:wither|normal:point_x"
                     ),
                 () -> "minecraft:player|normal:normal_green",
                 ConfigProcessor::isValidCREntityBindDTCursor
