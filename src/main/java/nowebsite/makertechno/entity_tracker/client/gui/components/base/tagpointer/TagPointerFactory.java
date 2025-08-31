@@ -1,7 +1,6 @@
 package nowebsite.makertechno.entity_tracker.client.gui.components.base.tagpointer;
 
 import nowebsite.makertechno.entity_tracker.client.render.texture.TIcon;
-import nowebsite.makertechno.entity_tracker.client.render.texture.TagPointerIcon;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

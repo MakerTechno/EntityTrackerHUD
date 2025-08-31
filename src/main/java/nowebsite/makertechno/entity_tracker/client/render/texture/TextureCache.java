@@ -26,13 +26,15 @@ public class TextureCache {
                 "brain_of_cthulhu",
                 "queen_bee",
                 "eater_of_worlds",
-                "skeletron",
-                "point_x"
+                "skeletron"
         );
         initPointers(
                 "normal_white",
                 "normal_red",
                 "normal_green"
+        );
+        initTagPointers(
+            "point_x"
         );
     }
 

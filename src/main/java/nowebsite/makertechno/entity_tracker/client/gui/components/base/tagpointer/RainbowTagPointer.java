@@ -3,7 +3,6 @@ package nowebsite.makertechno.entity_tracker.client.gui.components.base.tagpoint
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import nowebsite.makertechno.entity_tracker.client.render.texture.TIcon;
-import nowebsite.makertechno.entity_tracker.client.render.texture.TagPointerIcon;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;

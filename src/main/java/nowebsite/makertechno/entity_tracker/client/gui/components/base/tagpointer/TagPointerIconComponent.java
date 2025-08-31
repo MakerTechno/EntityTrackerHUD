@@ -3,7 +3,6 @@ package nowebsite.makertechno.entity_tracker.client.gui.components.base.tagpoint
 import net.minecraft.client.gui.GuiGraphics;
 import nowebsite.makertechno.entity_tracker.client.render.TRenderLike;
 import nowebsite.makertechno.entity_tracker.client.render.texture.TIcon;
-import nowebsite.makertechno.entity_tracker.client.render.texture.TagPointerIcon;
 import nowebsite.makertechno.entity_tracker.client.render.texture.TextureCache;
 import org.jetbrains.annotations.NotNull;
 

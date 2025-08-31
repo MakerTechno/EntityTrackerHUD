@@ -12,10 +12,8 @@ import nowebsite.makertechno.entity_tracker.core.track.algorithm.CameraProjector
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4fStack;
-import org.joml.Quaternionf;
 
 public class TDir3BodyCursor extends TDirectTagCursor{
-    private static final Quaternionf ROTATION = new Quaternionf().rotationZ(Mth.PI / 3 * 2);
     private final TagPointerIconComponent component2, component3;
     private Transform tO = new Transform(0,0,0);
     public TDir3BodyCursor(TagPointerIconComponent component1, TagPointerIconComponent component2, TagPointerIconComponent component3) {
