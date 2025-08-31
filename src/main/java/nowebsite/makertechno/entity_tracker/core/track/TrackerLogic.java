@@ -86,7 +86,8 @@ public class TrackerLogic {
 
     private static @NotNull List<Pair<EntityType<?>, Supplier<? extends TRenderComponent>>> getAllEntityGroups() {
         List<Pair<EntityType<?>, Supplier<? extends TRenderComponent>>> all = new ArrayList<>();
-        if (TConfig.centerRelativeAvailable) all.addAll(TConfig.cursorWithEntities);
+        if (TConfig.centerRelativeAvailable) all.addAll(TConfig.CRCursorWithEntities);
+        if (TConfig.trackFullAvailable) all.addAll(TConfig.DTCursorWithEntities);
         //all.addAll(else);
         return all;
     }

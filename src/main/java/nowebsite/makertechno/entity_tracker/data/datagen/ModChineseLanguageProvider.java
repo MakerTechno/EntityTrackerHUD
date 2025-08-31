@@ -40,8 +40,12 @@ public class ModChineseLanguageProvider extends LanguageProvider {
         add("entity_tracker.configuration.head_flat_available", "经度轴开关");
         add("entity_tracker.configuration.head_flat_available.tooltip", "启用或禁用经度轴条");
 
-        add("entity_tracker.configuration.center_relative_tracking", "跟踪");
+        add("entity_tracker.configuration.center_relative_tracking", "中心环绕式跟踪清单");
         add("entity_tracker.configuration.center_relative_tracking.button", "跟踪实体的设置");
         add("entity_tracker.configuration.center_relative_tracking.tooltip", "带有光标类型的实体类型列表，用\"|\"分隔");
+
+        add("entity_tracker.configuration.track_full_tracking", "绑定定位式跟踪清单");
+        add("entity_tracker.configuration.track_full_tracking.button", "跟踪实体的设置");
+        add("entity_tracker.configuration.track_full_tracking.tooltip", "带有光标类型的实体类型列表，用\"|\"分隔");
     }
 }

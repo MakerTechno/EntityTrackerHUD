@@ -103,7 +103,19 @@ public class TConfig {
                             "terra_entity:voodoo_demon|normal_red|none"
                     ),
                     () -> "minecraft:player|normal_green|none",
-                    ConfigProcessor::isValidEntityBindCenterRelativeCursor
+                    ConfigProcessor::isValidEntityBindCRCursor
+            );
+
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> TRACK_FULL_BIND = BUILDER
+            .comment("List of entity types with cursors for full track display, separated with \"|\"")
+            .translation("entity_tracker.configuration.track_full_tracking")
+            .defineList(
+                    "entityType|type:icon(|optionalPattern)",
+                    List.of(
+                        "minecraft:wither|normal:normal_green"
+                    ),
+                () -> "minecraft:player|normal:normal_green",
+                ConfigProcessor::isValidCREntityBindDTCursor
             );
 
     public static final ModConfigSpec SPEC = BUILDER.build();
@@ -115,7 +127,8 @@ public class TConfig {
     public static boolean trackFullAvailable;
     public static boolean headFlatAvailable;
     public static ProjectAlgorithmLib.Type projectAlgorithm;
-    public static Set<Pair<EntityType<?>, Supplier<? extends TRenderComponent>>> cursorWithEntities;
+    public static Set<Pair<EntityType<?>, Supplier<? extends TRenderComponent>>> CRCursorWithEntities;
+    public static Set<Pair<EntityType<?>, Supplier<? extends TRenderComponent>>> DTCursorWithEntities;
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
@@ -127,7 +140,10 @@ public class TConfig {
         trackFullAvailable = TRACK_FULL_AVAILABLE.get();
         headFlatAvailable = HEAD_FLAT_AVAILABLE.get();
         projectAlgorithm = PROJECT_ALGORITHM.get();
-        if(TModClient.isLoaded) cursorWithEntities = ConfigProcessor.collectEntityBindCursor(CENTER_RELATIVE_BIND.get());
+        if(TModClient.isLoaded) {
+            CRCursorWithEntities = ConfigProcessor.collectCREntityBindCursor(CENTER_RELATIVE_BIND.get());
+            DTCursorWithEntities = ConfigProcessor.collectDTEntityBindCursor(TRACK_FULL_BIND.get());
+        }
         TrackerLogic.getRENDERING().forEach((uuid, trackerEntityState) -> trackerEntityState.getComponent().flush());
     }
 

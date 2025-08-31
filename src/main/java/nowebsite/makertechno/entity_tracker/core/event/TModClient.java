@@ -20,7 +20,8 @@ public final class TModClient {
     @SubscribeEvent
     public static void onLoadComplete(FMLLoadCompleteEvent event) {
         isLoaded = true;
-        TConfig.cursorWithEntities = ConfigProcessor.collectEntityBindCursor(TConfig.CENTER_RELATIVE_BIND.get());
+        TConfig.CRCursorWithEntities = ConfigProcessor.collectCREntityBindCursor(TConfig.CENTER_RELATIVE_BIND.get());
+        TConfig.DTCursorWithEntities = ConfigProcessor.collectDTEntityBindCursor(TConfig.TRACK_FULL_BIND.get());
     }
     @SubscribeEvent
     public static void regRenderer(@NotNull RegisterGuiLayersEvent event){

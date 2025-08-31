@@ -1,4 +1,4 @@
-package nowebsite.makertechno.entity_tracker.client.gui.components.base;
+package nowebsite.makertechno.entity_tracker.client.gui.components.base.pointer;
 
 import net.minecraft.client.gui.GuiGraphics;
 import nowebsite.makertechno.entity_tracker.client.render.TRenderLike;

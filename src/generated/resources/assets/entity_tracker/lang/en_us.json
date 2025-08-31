@@ -20,5 +20,8 @@
   "entity_tracker.configuration.section.entity.tracker.client.toml.title": "Entity Tracker Configuration",
   "entity_tracker.configuration.title": "Entity Tracker Settings",
   "entity_tracker.configuration.track_full_available": "Full screen tag hud available",
-  "entity_tracker.configuration.track_full_available.tooltip": "Enable or disable full screen tag cursors"
+  "entity_tracker.configuration.track_full_available.tooltip": "Enable or disable full screen tag cursors",
+  "entity_tracker.configuration.track_full_tracking": "Tracking settings for full-track cursors",
+  "entity_tracker.configuration.track_full_tracking.button": "Settings for tracking entities",
+  "entity_tracker.configuration.track_full_tracking.tooltip": "List of entity types with cursor types, separated with \"|\""
 }

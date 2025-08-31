@@ -1,4 +1,4 @@
-package nowebsite.makertechno.entity_tracker.client.gui.components.base;
+package nowebsite.makertechno.entity_tracker.client.gui.components.base.entityicon;
 
 import nowebsite.makertechno.entity_tracker.client.render.texture.EntityIcon;
 import org.jetbrains.annotations.Contract;

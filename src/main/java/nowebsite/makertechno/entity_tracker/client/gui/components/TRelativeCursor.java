@@ -6,12 +6,12 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import nowebsite.makertechno.entity_tracker.client.gui.components.base.EntityIconComponent;
-import nowebsite.makertechno.entity_tracker.client.gui.components.base.PointerIconComponent;
+import nowebsite.makertechno.entity_tracker.client.gui.components.base.entityicon.EntityIconComponent;
+import nowebsite.makertechno.entity_tracker.client.gui.components.base.pointer.PointerIconComponent;
 import nowebsite.makertechno.entity_tracker.client.render.texture.EntityIcon;
 import nowebsite.makertechno.entity_tracker.client.render.texture.PointerIcon;
 import nowebsite.makertechno.entity_tracker.core.config.TConfig;
-import nowebsite.makertechno.entity_tracker.core.track.algorithm.DirProjector;
+import nowebsite.makertechno.entity_tracker.core.track.algorithm.RelativeProjector;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4fStack;
 
@@ -39,7 +39,7 @@ public class TRelativeCursor implements TRenderComponent{
         this.tO = TRelativeCursor.renderStatic(graphics, partialTick, transform, tO, pointerIconComponent, entityIconComponent, scale);
     }
 
-    private static Transform renderStatic(
+    private static @NotNull Transform renderStatic(
             GuiGraphics graphics,
             float partialTick,
             @NotNull TransformBase transformBase, Transform tO,
@@ -87,8 +87,7 @@ public class TRelativeCursor implements TRenderComponent{
         float ew = (float) entityIcon.width() / 2 * scale, eh = (float) entityIcon.height() / 2 * scale;
         float dist = -(result.pickDirect - pointer.height() - (int) Math.ceil(Math.sqrt(2 * entityIcon.height()) + 2)) * scale;
 
-        Transform transformNew = new Transform(radius, dist);
-        Transform transformSmooth = transform.smoothTransformModify(transformNew, partialTick);
+        Transform transformSmooth = transform.smoothTransformModify(radius, dist, partialTick);
 
         matrix4fStack.pushMatrix(); // 1
         matrix4fStack.translate((float) graphics.guiWidth() / 2, (float) graphics.guiHeight() / 2, 0);
@@ -132,7 +131,7 @@ public class TRelativeCursor implements TRenderComponent{
     }
 
     private static @NotNull TransformBase transformLocation(@NotNull Player player, Vec3 target, @NotNull PointerIcon pointer, @NotNull EntityIcon entityIcon) {
-        double[] arcAndDist = DirProjector.calculateAngle(
+        double[] arcAndDist = RelativeProjector.calculateAngle(
             player.getEyePosition(),
             player.getViewVector(1f),
             target,
@@ -150,17 +149,17 @@ public class TRelativeCursor implements TRenderComponent{
 
     private record TransformBase(float angleRadians, float pickDirect, float alpha) {}
 
-    private static class Transform {
+    private static final class Transform {
         float radius;
         float dist;
         private Transform(float radius, float dist) {
             this.radius = radius;
             this.dist = dist;
         }
-        public Transform smoothTransformModify(@NotNull Transform transform, float partialTick) {
-            if(Mth.abs(this.radius - transform.radius) < Mth.PI * 1.5) this.radius = Mth.lerp(partialTick, this.radius, transform.radius);
-            else this.radius = transform.radius;
-            this.dist = Mth.lerp(partialTick, this.dist, transform.dist);
+        public Transform smoothTransformModify(float radius, float dist, float partialTick) {
+            if(Mth.abs(this.radius - radius) < Mth.PI * 1.5) this.radius = Mth.lerp(partialTick, this.radius, radius);
+            else this.radius = radius;
+            this.dist = Mth.lerp(partialTick, this.dist, dist);
             return this;
         }
     }

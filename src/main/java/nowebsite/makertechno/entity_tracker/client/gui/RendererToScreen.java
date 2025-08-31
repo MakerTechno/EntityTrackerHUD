@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import nowebsite.makertechno.entity_tracker.client.gui.components.TRenderComponent;
 import nowebsite.makertechno.entity_tracker.core.track.algorithm.CameraProjector;
-import nowebsite.makertechno.entity_tracker.core.track.algorithm.DirProjector;
+import nowebsite.makertechno.entity_tracker.core.track.algorithm.RelativeProjector;
 import nowebsite.makertechno.entity_tracker.core.config.TConfig;
 import nowebsite.makertechno.entity_tracker.client.gui.components.TRelativeCursor;
 import nowebsite.makertechno.entity_tracker.client.gui.components.TEntityIcon;
@@ -21,7 +21,7 @@ import org.joml.Matrix4fStack;
 
 public class RendererToScreen {
     public static void centerRelativePointer(@NotNull GuiGraphics guiGraphics, @NotNull Player player, @NotNull Pair<Vec3, TRenderComponent> vec3CursorsPair) {
-        double[] arcAndDist = DirProjector.calculateAngle(
+        double[] arcAndDist = RelativeProjector.calculateAngle(
             player.getEyePosition(),
             player.getViewVector(1f),
             vec3CursorsPair.getFirst(),

@@ -14,6 +14,7 @@ import java.util.*;
 public class TextureCache {
     private static final Map<String, EntityIcon> ENTITY_ICON_CACHE = new HashMap<>();
     private static final Map<String, PointerIcon> POINTER_ICON_CACHE = new HashMap<>();
+    private static final Map<String, TagPointerIcon> TAG_POINTER_ICON_CACHE = new HashMap<>();
     private static final Set<ResourceLocation> MISCELLANEOUS_CACHE = new HashSet<>();
 
     static {
@@ -63,6 +64,24 @@ public class TextureCache {
             for (String key : strings) {
                 try {
                     POINTER_ICON_CACHE.put(key, TextureBuildTool.initTIcon(key, getResourceFromModLocale(key), PointerIcon::new).orElseThrow());
+                } catch (NoSuchElementException e) {
+                    warnUnload(key);
+                }
+            }
+        }
+    }
+
+    public static TagPointerIcon getTagPointer(String regName) {
+        return TAG_POINTER_ICON_CACHE.computeIfAbsent(regName, key -> {
+            ResourceLocation location = getResourceFromModLocale(key);
+            return TextureBuildTool.initTIcon(key, location, TagPointerIcon::new).orElse(TagPointerIcon.NONE);
+        });
+    }
+    public static void initTagPointers(String ...strings) {
+        if (strings != null) {
+            for (String key : strings) {
+                try {
+                    TAG_POINTER_ICON_CACHE.put(key, TextureBuildTool.initTIcon(key, getResourceFromModLocale(key), TagPointerIcon::new).orElseThrow());
                 } catch (NoSuchElementException e) {
                     warnUnload(key);
                 }

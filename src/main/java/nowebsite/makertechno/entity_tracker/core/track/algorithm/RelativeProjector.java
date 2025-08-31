@@ -4,7 +4,7 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public class DirProjector {
+public class RelativeProjector {
     public static @NotNull Vec3 eyeAlignedProjection(@NotNull Vec3 relativeVec, @NotNull Vec3 playerEyeSight) {
         // 计算玩家视角的水平角度
         double playerYaw = Math.atan2(playerEyeSight.z, playerEyeSight.x);

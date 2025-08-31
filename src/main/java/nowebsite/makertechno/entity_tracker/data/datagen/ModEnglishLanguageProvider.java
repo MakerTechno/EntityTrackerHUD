@@ -36,5 +36,9 @@ public class ModEnglishLanguageProvider extends LanguageProvider {
         add("entity_tracker.configuration.center_relative_tracking", "Tracking settings for center-relative cursors");
         add("entity_tracker.configuration.center_relative_tracking.button", "Settings for tracking entities");
         add("entity_tracker.configuration.center_relative_tracking.tooltip", "List of entity types with cursor types, separated with \"|\"");
+
+        add("entity_tracker.configuration.track_full_tracking", "Tracking settings for full-track cursors");
+        add("entity_tracker.configuration.track_full_tracking.button", "Settings for tracking entities");
+        add("entity_tracker.configuration.track_full_tracking.tooltip", "List of entity types with cursor types, separated with \"|\"");
     }
 }
