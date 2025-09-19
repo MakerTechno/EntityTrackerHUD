@@ -77,7 +77,7 @@ public class TConfig {
 
                             "terra_entity:demon_eye|normal_red|none",
                             "terra_entity:flying_fish|normal_red|none",
-                            "terra_entity:crimson_kemera|normal_red|none",
+                            "terra_entity:crimera|normal_red|none",
                             "terra_entity:eater_of_souls|normal_red|none",
                             "terra_entity:giant_worm|normal_red|none",
                             "terra_entity:tomb_crawler|normal_red|none",
