@@ -10,11 +10,11 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import nowebsite.makertechno.entity_tracker.EntityTracker;
 import nowebsite.makertechno.entity_tracker.client.gui.TGui;
 import nowebsite.makertechno.entity_tracker.client.gui.TGuiStatics;
-import nowebsite.makertechno.entity_tracker.core.config.TConfig;
 import nowebsite.makertechno.entity_tracker.core.config.ConfigProcessor;
+import nowebsite.makertechno.entity_tracker.core.config.TConfig;
 import org.jetbrains.annotations.NotNull;
 
-@EventBusSubscriber(modid = EntityTracker.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = EntityTracker.MOD_ID, value = Dist.CLIENT)
 public final class TModClient {
     public static boolean isLoaded = false;
     @SubscribeEvent

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
-@EventBusSubscriber(modid = EntityTracker.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = EntityTracker.MOD_ID)
 public class TConfig {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
