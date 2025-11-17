@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
-@EventBusSubscriber(modid = EntityTracker.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = EntityTracker.MOD_ID)
 public class TConfig {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
@@ -77,7 +77,7 @@ public class TConfig {
 
                             "terra_entity:demon_eye|normal_red|none",
                             "terra_entity:flying_fish|normal_red|none",
-                            "terra_entity:crimson_kemera|normal_red|none",
+                            "terra_entity:crimera|normal_red|none",
                             "terra_entity:eater_of_souls|normal_red|none",
                             "terra_entity:giant_worm|normal_red|none",
                             "terra_entity:tomb_crawler|normal_red|none",
