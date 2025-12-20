@@ -100,7 +100,10 @@ public class TConfig {
                             "terra_entity:ghost|normal_red|none",
                             "terra_entity:fire_imp|normal_red|none",
                             "terra_entity:demon|normal_red|none",
-                            "terra_entity:voodoo_demon|normal_red|none"
+                            "terra_entity:voodoo_demon|normal_red|none",
+                            "terra_entity:bone_serpent|normal_red|none",
+                            "terra_entity:wither_bone_serpent|normal_red|none",
+                            "terra_entity:meteor_head|normal_red|none"
                     ),
                     () -> "minecraft:player|normal_green|none",
                     ConfigProcessor::isValidEntityBindCRCursor
