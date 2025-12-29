@@ -73,6 +73,8 @@ public class TConfig {
                             "terra_entity:eater_of_worlds|normal_red|eater_of_worlds",
                             "terra_entity:queen_bee|normal_red|queen_bee",
                             "terra_entity:skeletron|normal_red|skeletron",
+                            "terra_entity:hill_of_flesh|normal_red|wall_of_flesh",
+                            "terra_entity:wall_of_flesh|normal_red|wall_of_flesh",
 
 
                             "terra_entity:demon_eye|normal_red|none",
@@ -100,7 +102,10 @@ public class TConfig {
                             "terra_entity:ghost|normal_red|none",
                             "terra_entity:fire_imp|normal_red|none",
                             "terra_entity:demon|normal_red|none",
-                            "terra_entity:voodoo_demon|normal_red|none"
+                            "terra_entity:voodoo_demon|normal_red|none",
+                            "terra_entity:bone_serpent|normal_red|none",
+                            "terra_entity:wither_bone_serpent|normal_red|none",
+                            "terra_entity:meteor_head|normal_red|none"
                     ),
                     () -> "minecraft:player|normal_green|none",
                     ConfigProcessor::isValidEntityBindCRCursor
