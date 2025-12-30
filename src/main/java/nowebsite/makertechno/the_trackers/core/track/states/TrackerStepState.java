@@ -18,7 +18,7 @@ public class TrackerStepState {
         return currentPos;
     }
     public void renderComponent(GuiGraphics guiGraphics, float partialTick, Player player) {
-        component.render(guiGraphics, partialTick, player, currentPos);
+        component.render(guiGraphics, player, currentPos, partialTick);
     }
     public TRenderComponent getComponent() {
         return component;

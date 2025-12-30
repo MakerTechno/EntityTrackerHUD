@@ -15,7 +15,7 @@ public class RelativeProjector {
     }
 
     // 计算玩家和生物位置的投影并计算角度
-    public static double @NotNull [] calculateAngle(Vec3 playerPos, Vec3 playerEyeSight, @NotNull Vec3 entityPos, @NotNull ProjectToAngleAndDistance projector) {
+    public static float[] calculateAngle(Vec3 playerPos, Vec3 playerEyeSight, @NotNull Vec3 entityPos, @NotNull ProjectToAngleAndDistance projector) {
         // 计算玩家位置的投影
         Vec2 base = projector.project(eyeAlignedProjection(playerEyeSight, playerEyeSight));
         // 计算生物位置的投影
@@ -26,6 +26,6 @@ public class RelativeProjector {
 
         // 计算距离
         double distance = Math.sqrt(Math.pow(target.x - base.x, 2) + Math.pow(target.y - base.y, 2));
-        return new double[]{Math.atan2(result.y, result.x) + Math.PI, distance};
+        return new float[]{(float) (Math.atan2(result.y, result.x) + Math.PI), (float) distance};
     }
 }

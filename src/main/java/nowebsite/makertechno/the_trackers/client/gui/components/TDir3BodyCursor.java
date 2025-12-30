@@ -1,132 +1,126 @@
 package nowebsite.makertechno.the_trackers.client.gui.components;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.Vec3;
 import nowebsite.makertechno.the_trackers.client.gui.icons.IconComponent;
-import nowebsite.makertechno.the_trackers.core.track.algorithm.CameraProjector;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4fStack;
 
+/**
+ * 三维投影指针变体，指针位于目标外侧环绕目标。
+ */
 public class TDir3BodyCursor extends TDirectProjCursor {
-    private final IconComponent component2, component3;
-    private Transform tO = new Transform(0,0,0);
+
+    /**
+     * 平滑器。不建议不同渲染逻辑的类共用
+     */
+    protected static class B3Transformer extends Transformer {
+        protected float rot;
+        protected B3Transformer(float x, float y, float rot) {
+            super(x, y);
+            this.rot = rot;
+        }
+        protected void setRot(float rot) {
+            this.rot = rot;
+        }
+        protected void makeSmooth(float x, float y, float rot, float partialTick) {
+            super.makeSmooth(x, y, partialTick);
+            this.rot = Mth.lerp(partialTick, this.rot, rot);
+        }
+    }
+
+    protected final IconComponent component2, component3;
+
+    protected boolean shouldFaceCenter = false;
+
+    private final B3Transformer b3Transformer = new B3Transformer(0,0,0);
+
+
     public TDir3BodyCursor(IconComponent component1, IconComponent component2, IconComponent component3) {
         super(component1);
         this.component2 = component2;
         this.component3 = component3;
     }
 
+    public TDir3BodyCursor(IconComponent component1, IconComponent component2, IconComponent component3, float definedScale) {
+        super(component1, definedScale);
+        this.component2 = component2;
+        this.component3 = component3;
+    }
+
+    public void setFaceCenter(boolean shouldFaceCenter) {
+        this.shouldFaceCenter = shouldFaceCenter;
+    }
+
     @Override
     public void flush() {
         super.flush();
-        component2.flush();
-        component3.flush();
+        this.component2.flush();
+        this.component3.flush();
     }
 
     @Override
-    public void render(@NotNull GuiGraphics graphics, float partialTick, @NotNull Player player, Vec3 target) {
-        tO = renderStatic(graphics, partialTick, player, target, component, component2, component3, scale, tO);
-    }
-
-    private static @NotNull Transform renderStatic(@NotNull GuiGraphics graphics, float partialTick, @NotNull Player player, Vec3 target, IconComponent component1, IconComponent component2, IconComponent component3, float scale, Transform tO) {
-        float[] projScrPoint = CameraProjector.projectToScreen(
-            renderer,
-            target,
-            player.getEyePosition(),
-            Minecraft.getInstance().gameRenderer.getMainCamera(),
-            graphics.guiWidth(),
-            graphics.guiHeight()
-        );
-
-        float alpha = 1;
-        if (projScrPoint[2] < 0.2* graphics.guiWidth()) alpha = (float) (projScrPoint[2]*0.6/(0.2* graphics.guiWidth()) + 0.4);
-
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, alpha);
-
-        // init
-        RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate(
-            GlStateManager.SourceFactor.SRC_ALPHA,
-            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
-            GlStateManager.SourceFactor.ONE,
-            GlStateManager.DestFactor.ZERO
-        );
-
-        float dx = projScrPoint[0] - tO.x;
-        float dy = projScrPoint[1] - tO.y;
+    protected void updateTransformer(float[] projScrPoint, float partialTick, float scale) {
+        float dx = projScrPoint[0] - b3Transformer.x;
+        float dy = projScrPoint[1] - b3Transformer.y;
         float distance = (float) Math.sqrt(dx * dx + dy * dy);
         float signedDelta = distance * 0.008F * Math.signum(dx);
-        float rot = tO.rot + signedDelta;
+        float rot = b3Transformer.rot + signedDelta;
+        if (smoothMove) b3Transformer.makeSmooth(projScrPoint[0], projScrPoint[1], rot, partialTick);
+        else {
+            b3Transformer.set(projScrPoint[0], projScrPoint[1]);
+            b3Transformer.setRot(rot);
+        }
+    }
 
-        Transform transformSmooth = tO.smoothModify(projScrPoint[0], projScrPoint[1], rot, partialTick);
-
-        Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();
-        matrix4fStack.pushMatrix();
+    @Override
+    protected void translateAndRenderComponents(
+            GuiGraphics graphics, 
+            IconComponent component, 
+            Matrix4fStack stack, 
+            float partialTick, 
+            float scale
+    ) {
 
         for (int i = 0; i < 3; i++) {
-            matrix4fStack.pushMatrix();
+            stack.pushMatrix();
 
-            float r = (float) component1.getIcon().height() * 1.6F * scale;
-            float a = transformSmooth.rot + i * Mth.TWO_PI / 3f;
-            float px = transformSmooth.x + (float) Math.cos(a) * r;
-            float py = transformSmooth.y + (float) Math.sin(a) * r;
+            renderComponent(graphics, component, stack, partialTick, scale, i);
 
-            float theta = (float) Math.atan2(transformSmooth.y - py, transformSmooth.x - px) + Mth.HALF_PI;
-
-            matrix4fStack.translate(px, py, 0f);
-            matrix4fStack.rotateZ(theta);
-            matrix4fStack.translate(-(float) switch (i) {
-                case 0 -> component1.getIcon().width();
-                case 1 -> component2.getIcon().width();
-                case 2 -> component3.getIcon().width();
-                default -> 0;
-            } / 2f * scale, -(float) switch (i) {
-                case 0 -> component1.getIcon().height();
-                case 1 -> component2.getIcon().height();
-                case 2 -> component3.getIcon().height();
-                default -> 0;
-            } / 2f * scale, 0f);
-            matrix4fStack.scale(scale);
-
-            RenderSystem.applyModelViewMatrix();
-            switch (i) {
-                case 0 -> component1.render(graphics, partialTick);
-                case 1 -> component2.render(graphics, partialTick);
-                case 2 -> component3.render(graphics, partialTick);
-            }
-
-            matrix4fStack.popMatrix();
+            stack.popMatrix();
         }
 
         RenderSystem.resetTextureMatrix();
-        matrix4fStack.popMatrix();
+    }
 
+
+    private void renderComponent(GuiGraphics graphics, IconComponent component, Matrix4fStack stack, float partialTick, float scale, int index) {
+        float radius = (float) component.getIcon().height() * 1.6F * scale;
+        float angle = b3Transformer.rot + index * Mth.TWO_PI / 3f;
+        float px = b3Transformer.x + (float) Math.cos(angle) * radius;
+        float py = b3Transformer.y + (float) Math.sin(angle) * radius;
+        float theta = shouldFaceCenter ? (float) Math.atan2(b3Transformer.y - py, b3Transformer.x - px) + Mth.HALF_PI : angle;
+
+        stack.translate(px, py, 0f);
+        stack.rotateZ(theta);
+        stack.translate(-(float) switch (index) {
+            case 0 -> component.getIcon().width();
+            case 1 -> component2.getIcon().width();
+            case 2 -> component3.getIcon().width();
+            default -> 0;
+        } / 2f * scale, -(float) switch (index) {
+            case 0 -> component.getIcon().height();
+            case 1 -> component2.getIcon().height();
+            case 2 -> component3.getIcon().height();
+            default -> 0;
+        } / 2f * scale, 0f);
+        stack.scale(scale);
 
         RenderSystem.applyModelViewMatrix();
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.disableBlend();
-        return transformSmooth;
-    }
-    private static final class Transform {
-        private float x, y, rot;
-        private Transform(float x, float y, float rot) {
-            this.x = x;
-            this.y = y;
-            this.rot = rot;
-        }
-        @Contract("_, _, _, _ -> this")
-        private Transform smoothModify(float x, float y, float rot, float partialTick) {
-            this.x = Mth.lerp(partialTick, this.x, x);
-            this.y = Mth.lerp(partialTick, this.y, y);
-            this.rot = Mth.lerp(partialTick, this.rot, rot);
-            return this;
+        switch (index) {
+            case 0 -> component.render(graphics, partialTick);
+            case 1 -> component2.render(graphics, partialTick);
+            case 2 -> component3.render(graphics, partialTick);
         }
     }
 }

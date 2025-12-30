@@ -1,6 +1,5 @@
 package nowebsite.makertechno.the_trackers.client.gui.components;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,90 +8,111 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import nowebsite.makertechno.the_trackers.client.gui.icons.IconComponent;
-import nowebsite.makertechno.the_trackers.core.config.TConfig;
 import nowebsite.makertechno.the_trackers.core.track.algorithm.CameraProjector;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4fStack;
 
-public class TDirectProjCursor implements TRenderComponent {
-    final IconComponent component;
-    float scale;
-    private Transform tO = new Transform(0, 0);
-    static final GameRenderer renderer = Minecraft.getInstance().gameRenderer;
-    public TDirectProjCursor(IconComponent component) {
-        this.component = component;
-        scale = (float) TConfig.scale;
-    }
-    @Override
-    public void flush() {
-        component.flush();
-        scale = (float) TConfig.scale;
-    }
+/**
+ * 三维投影型指针，直接反应世界坐标投影。
+ */
+public class TDirectProjCursor extends TAbstractCursor {
 
-    @Override
-    public void render(@NotNull GuiGraphics graphics, float partialTick, @NotNull Player player, Vec3 target) {
-        tO = renderStatic(graphics, partialTick, player, target, component, scale, tO);
-    }
+    /**
+     * 平滑器。不建议不同渲染逻辑的类共用
+     */
+    protected static class Transformer {
+        protected float x, y;
 
-    private static @NotNull Transform renderStatic(@NotNull GuiGraphics graphics, float partialTick, @NotNull Player player, Vec3 target, IconComponent component, float scale, Transform tO) {
-        float[] projScrPoint = CameraProjector.projectToScreen(
-            renderer,
-            target,
-            player.getEyePosition(),
-            Minecraft.getInstance().gameRenderer.getMainCamera(),
-            graphics.guiWidth(),
-            graphics.guiHeight()
-        );
-
-        scale = scale / (projScrPoint[3] * projScrPoint[3]);
-        float alpha = 1;
-        if (projScrPoint[2] < 0.2* graphics.guiWidth()) alpha = (float) (projScrPoint[2]*0.6/(0.2* graphics.guiWidth()) + 0.4);
-
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, alpha);
-
-        // init
-        RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate(
-            GlStateManager.SourceFactor.SRC_ALPHA,
-            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
-            GlStateManager.SourceFactor.ONE,
-            GlStateManager.DestFactor.ZERO
-        );
-
-        Transform transformSmooth = tO.smoothModify(projScrPoint[0], projScrPoint[1], partialTick);
-
-        Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();
-        matrix4fStack.pushMatrix(); // 1
-        matrix4fStack.translate(-(float) component.getIcon().width() / 2 * scale, -(float) component.getIcon().height() / 2 * scale, 0);
-        matrix4fStack.translate(transformSmooth.x, transformSmooth.y, 0);
-        RenderSystem.applyModelViewMatrix();
-
-        /* go on */
-        component.render(graphics, partialTick);
-        /* end of icon rend */
-
-        RenderSystem.resetTextureMatrix();
-
-        matrix4fStack.popMatrix(); // 0
-        RenderSystem.applyModelViewMatrix();
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.disableBlend();
-        return transformSmooth;
-    }
-
-    private static final class Transform {
-        private float x, y;
-        private Transform(float x, float y) {
+        protected Transformer(float x, float y) {
             this.x = x;
             this.y = y;
         }
-        @Contract("_, _, _ -> this")
-        private Transform smoothModify(float x, float y, float partialTick) {
+
+        protected void set(float x, float y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        protected void makeSmooth(float x, float y, float partialTick) {
             this.x = Mth.lerp(partialTick, this.x, x);
             this.y = Mth.lerp(partialTick, this.y, y);
-            return this;
         }
+    }
+
+
+    protected static final GameRenderer RENDERER = Minecraft.getInstance().gameRenderer;
+
+    protected final IconComponent component;
+
+    private final Transformer transformer = new Transformer(0, 0);
+
+    public TDirectProjCursor(IconComponent component) {
+        super();
+        this.component = component;
+    }
+
+    public TDirectProjCursor(IconComponent component, float definedScale) {
+        super(definedScale);
+        this.component = component;
+    }
+
+    @Override
+    public void flush() {
+        super.flush();
+        this.component.flush();
+    }
+
+    protected float @NotNull [] getProjectScr(GuiGraphics graphics, Player player, Vec3 target) {
+        return CameraProjector.projectToScreen(
+                RENDERER,
+                target,
+                player.getEyePosition(),
+                Minecraft.getInstance().gameRenderer.getMainCamera(),
+                graphics.guiWidth(),
+                graphics.guiHeight()
+        );
+    }
+
+    protected void updateTransformer(float[] projScrPoint, float partialTick, float scale) {
+        if (smoothMove) transformer.makeSmooth(projScrPoint[0], projScrPoint[1], partialTick);
+        else transformer.set(projScrPoint[0], projScrPoint[1]);
+    }
+
+    @Override
+    protected int getDistanceProjIndex() {
+        return 3;
+    }
+
+    @Override
+    protected float getAlpha(float[] projScrPoint) {
+        return 1;
+    }
+
+    protected void renderInsights(GuiGraphics graphics, float partialTick, float scale) {
+        Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();
+        matrix4fStack.pushMatrix();
+        translateAndRenderComponents(graphics, component, matrix4fStack, partialTick, scale);
+        matrix4fStack.popMatrix();
+        RenderSystem.applyModelViewMatrix();
+    }
+
+    protected void translateAndRenderComponents(
+            GuiGraphics graphics,
+            IconComponent component,
+            Matrix4fStack stack,
+            float partialTick,
+            float scale
+    ) {
+        stack.translate(
+                -(float) component.getIcon().width() * scale / 2,
+                -(float) component.getIcon().height() * scale / 2,
+                0
+        );
+        stack.translate(transformer.x , transformer.y, 0);
+        RenderSystem.applyModelViewMatrix();
+
+        component.render(graphics, partialTick);
+
+        RenderSystem.resetTextureMatrix();
     }
 }
