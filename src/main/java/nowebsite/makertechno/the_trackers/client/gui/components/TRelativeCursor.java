@@ -75,16 +75,11 @@ public class TRelativeCursor extends TAbstractCursor {
         Icon icon = entityIconComponent.getIcon();
         // pickDirect is ease-in-out from 15 to 2(pointer.getHeight() + icon.getHeight()) when direct is in [0, 0.8),
         // and infinity closes to 2(pointer.getHeight() + icon.getHeight()) when direct bigger than 1
-        this.pickDirect = 15 + (float) (Math.atan(projScrPoint[1] / 0.8) * 140 / Math.PI);
+        this.pickDirect = 20 + (float) (Math.atan(projScrPoint[1] / 0.8) * 240 / Math.PI);
         float dist = -(pickDirect - pointer.height() - (int) Math.ceil(Math.sqrt(2 * icon.height()) + 2)) * scale;
 
         if (smoothMove) transformer.makeSmooth(radius, dist, partialTick);
         else transformer.set(radius, dist);
-    }
-
-    @Override
-    protected int getDistanceProjIndex() {
-        return 1;
     }
 
     @Override
@@ -95,22 +90,24 @@ public class TRelativeCursor extends TAbstractCursor {
     }
 
     @Override
-    protected void renderInsights(GuiGraphics graphics, float partialTick, float scale) {
+    protected void renderInsights(GuiGraphics graphics, float[] projScrPoint, float partialTick, float scale) {
         Matrix4fStack stack = RenderSystem.getModelViewStack();
         stack.pushMatrix();
-        translateAndRenderComponents(graphics, pointerIconComponent, entityIconComponent, stack, partialTick, scale);
+        translateAndRenderComponents(graphics, projScrPoint, pointerIconComponent, entityIconComponent, stack, partialTick, scale);
         stack.popMatrix();
         RenderSystem.applyModelViewMatrix();
     }
     
     protected void translateAndRenderComponents(
-            GuiGraphics graphics, 
+            GuiGraphics graphics,
+            float[] projScrPoint,
             IconComponent pointerComponent,
             IconComponent entityComponent, 
             Matrix4fStack stack,
             float partialTick,
             float scale
     ) {
+        float radius = (float) (-projScrPoint[0] - Math.PI/2);
         Icon pointer = pointerComponent.getIcon();
         Icon icon = entityComponent.getIcon();
 
@@ -123,7 +120,7 @@ public class TRelativeCursor extends TAbstractCursor {
         stack.pushMatrix(); // 2
         {
             stack.translate(pw, ph, 0);
-            stack.translate(0, -this.pickDirect * scale, 0);
+            stack.translate(0, -this.pickDirect* scale, 0);
             stack.scale(scale, scale, 1);
             RenderSystem.applyModelViewMatrix();
 
@@ -141,7 +138,7 @@ public class TRelativeCursor extends TAbstractCursor {
                 stack.translate(0, transformer.dist, 0);
 
                 stack.translate(ew, eh, 0);
-                stack.rotateZ(-transformer.radius);
+                stack.rotateZ(-radius);  // A funny delayed rot for icon
                 stack.translate(-ew, -eh, 0);
 
                 stack.scale(scale, scale, 1);

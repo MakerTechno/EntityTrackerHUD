@@ -1,6 +1,6 @@
 package nowebsite.makertechno.the_trackers.core.track.states;
 
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.entity.Entity;
 import nowebsite.makertechno.the_trackers.client.gui.components.TRenderComponent;
 
 public class TickLimitedTrackerState extends ControllableTrackerState{
@@ -8,13 +8,13 @@ public class TickLimitedTrackerState extends ControllableTrackerState{
 
     private int ticking = 0;
     public TickLimitedTrackerState(String identifyName, TRenderComponent component, int maxTicked, boolean isVisible) {
-        super(identifyName, component, isVisible);
+        super(identifyName, component, isVisible, false);
         this.maxTicked = maxTicked;
     }
 
     @Override
-    public void setPos(Vec3 pos) {
-        super.setPos(pos);
+    public void setPosEntity(Entity entity) {
+        super.setPosEntity(entity);
         if (ticking < maxTicked) ticking++;
         else this.close();
     }

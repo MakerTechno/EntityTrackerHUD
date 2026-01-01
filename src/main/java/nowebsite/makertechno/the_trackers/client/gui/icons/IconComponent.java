@@ -11,6 +11,7 @@ public class IconComponent {
     }
     @SuppressWarnings("all")
     public void render(@NotNull GuiGraphics graphics, float partialTick) {
+        if (icon.equals(Icon.NONE)) return;
         graphics.blit(icon.location(),
                 0,0,
                 0,0,

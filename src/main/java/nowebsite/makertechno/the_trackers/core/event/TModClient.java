@@ -12,6 +12,7 @@ import nowebsite.makertechno.the_trackers.client.gui.TGui;
 import nowebsite.makertechno.the_trackers.client.gui.TGuiStatics;
 import nowebsite.makertechno.the_trackers.core.config.ConfigProcessor;
 import nowebsite.makertechno.the_trackers.core.config.TConfig;
+import nowebsite.makertechno.the_trackers.core.track.EntityTracker;
 import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber(modid = TheTrackers.MOD_ID, value = Dist.CLIENT)
@@ -22,6 +23,7 @@ public final class TModClient {
         isLoaded = true;
         TConfig.CRCursorWithEntities = ConfigProcessor.collectCREntityBindCursor(TConfig.CENTER_RELATIVE_BIND.get());
         TConfig.DTCursorWithEntities = ConfigProcessor.collectDTEntityBindCursor(TConfig.TRACK_FULL_BIND.get());
+        EntityTracker.reCalcAllEntityGroups();
     }
     @SubscribeEvent
     public static void regRenderer(@NotNull RegisterGuiLayersEvent event){

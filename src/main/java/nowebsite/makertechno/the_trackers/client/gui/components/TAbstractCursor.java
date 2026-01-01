@@ -11,7 +11,7 @@ public abstract class TAbstractCursor implements TRenderComponent{
 
     protected float scaleCached;
     protected float definedScale;
-    protected boolean smoothMove = false;
+    protected boolean smoothMove = true;
     protected boolean affectedByPlayerScale = true;
 
     protected TAbstractCursor(float definedScale) {
@@ -40,19 +40,18 @@ public abstract class TAbstractCursor implements TRenderComponent{
 
         float[] projScrPoint = getProjectScr(graphics, player, target);
 
-        float scale = (affectedByPlayerScale ? scaleCached : 1) * definedScale / (projScrPoint[getDistanceProjIndex()] * projScrPoint[getDistanceProjIndex()]);
+        float scale = (affectedByPlayerScale ? scaleCached : 1) * definedScale;
 
         updateTransformer(projScrPoint, partialTick, scale);
         RenderSystemInit(getAlpha(projScrPoint));
-        renderInsights(graphics, partialTick, scale);
+        renderInsights(graphics, projScrPoint, partialTick, scale);
         RenderSystemRestore();
     }
 
     protected abstract float[] getProjectScr(GuiGraphics graphics, Player player, Vec3 target);
     protected abstract void updateTransformer(float[] projScrPoint, float partialTick, float scale);
-    protected abstract int getDistanceProjIndex();
     protected abstract float getAlpha(float[] projScrPoint);
-    protected abstract void renderInsights(GuiGraphics graphics, float partialTick, float scale);
+    protected abstract void renderInsights(GuiGraphics graphics, float[] projScrPoint, float partialTick, float scale);
 
     protected static void RenderSystemInit(float alpha) {
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, alpha);

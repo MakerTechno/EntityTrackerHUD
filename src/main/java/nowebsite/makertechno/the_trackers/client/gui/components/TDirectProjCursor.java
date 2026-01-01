@@ -79,16 +79,12 @@ public class TDirectProjCursor extends TAbstractCursor {
     }
 
     @Override
-    protected int getDistanceProjIndex() {
-        return 3;
-    }
-
-    @Override
     protected float getAlpha(float[] projScrPoint) {
         return 1;
     }
 
-    protected void renderInsights(GuiGraphics graphics, float partialTick, float scale) {
+    protected void renderInsights(GuiGraphics graphics, float[] projScrPoint, float partialTick, float scale) {
+        scale = scale / projScrPoint[3] * 15;
         Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();
         matrix4fStack.pushMatrix();
         translateAndRenderComponents(graphics, component, matrix4fStack, partialTick, scale);
@@ -109,6 +105,7 @@ public class TDirectProjCursor extends TAbstractCursor {
                 0
         );
         stack.translate(transformer.x , transformer.y, 0);
+        stack.scale(scale, scale, 1);
         RenderSystem.applyModelViewMatrix();
 
         component.render(graphics, partialTick);

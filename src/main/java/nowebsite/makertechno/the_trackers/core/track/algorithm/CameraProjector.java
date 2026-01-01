@@ -2,7 +2,6 @@ package nowebsite.makertechno.the_trackers.core.track.algorithm;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +32,7 @@ public class CameraProjector {
         float distanceToCenter = Vector2f.distance(x, y, (float) (windowWidth*0.5), (float) (windowHeight*0.5));
         float distanceToTarget = Vector3f.distance((float) targetPos.x, (float) targetPos.y, (float) targetPos.z, (float) cameraPos.x, (float) cameraPos.y, (float) cameraPos.z);
 
-        return new float[]{Mth.clamp(x, 16, windowWidth - 16), Mth.clamp(y, 16, windowHeight - 16), distanceToCenter, distanceToTarget};
+        return new float[]{x, y, distanceToCenter, distanceToTarget};
     }
 
 }

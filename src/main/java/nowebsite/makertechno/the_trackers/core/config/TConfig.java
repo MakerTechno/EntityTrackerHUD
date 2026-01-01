@@ -138,7 +138,7 @@ public class TConfig {
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
         available = AVAILABLE.get();
-        scale = GUI_SCALE.get();
+        scale = GUI_SCALE.get() * 0.6;
         interval = REFRESH_POS_INTERVAL.get();
         maxTrackingQuantity = MAX_TRACK_QUANTITY.get();
         centerRelativeAvailable = CENTER_RELATIVE_AVAILABLE.get();

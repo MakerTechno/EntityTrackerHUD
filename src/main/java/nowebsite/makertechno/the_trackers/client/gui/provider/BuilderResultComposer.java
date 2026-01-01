@@ -1,10 +1,7 @@
 package nowebsite.makertechno.the_trackers.client.gui.provider;
 
 import nowebsite.makertechno.the_trackers.api.component.ComponentBuilder;
-import nowebsite.makertechno.the_trackers.client.gui.components.TDir3BodyCursor;
-import nowebsite.makertechno.the_trackers.client.gui.components.TDirectProjCursor;
-import nowebsite.makertechno.the_trackers.client.gui.components.TRelativeCursor;
-import nowebsite.makertechno.the_trackers.client.gui.components.TRenderComponent;
+import nowebsite.makertechno.the_trackers.client.gui.components.*;
 import nowebsite.makertechno.the_trackers.client.gui.icons.IconComponent;
 import nowebsite.makertechno.the_trackers.client.gui.icons.IconComponentFactory;
 import nowebsite.makertechno.the_trackers.client.gui.icons.Icon;
@@ -22,17 +19,22 @@ public final class BuilderResultComposer {
     }
 
     public static TRenderComponent composeRelativeComponent(ComponentBuilder.BuilderResult result) {
-        return new TRelativeCursor(getIconComponent(result.component1Pattern, result.icon1), getIconComponent(result.component2Pattern, result.icon2));
+        TRelativeCursor cursor = new TRelativeCursor(getIconComponent(result.component1Pattern, result.icon1.get()), getIconComponent(result.component2Pattern, result.icon2.get()));
+        cursor.setSmoothMove(result.isSmoothMove);
+        return cursor;
     }
 
     public static TRenderComponent composeDirectComponent(ComponentBuilder.BuilderResult result) {
+        TAbstractCursor cursor;
         if (result.cursorPattern != null && result.cursorPattern.equals("3body"))
-            return new TDir3BodyCursor(
-                    getIconComponent(result.component1Pattern, result.icon1),
-                    getIconComponent(result.component2Pattern, result.icon2),
-                    getIconComponent(result.component3Pattern, result.icon3)
+            cursor = new TDir3BodyCursor(
+                    getIconComponent(result.component1Pattern, result.icon1.get()),
+                    getIconComponent(result.component2Pattern, result.icon2.get()),
+                    getIconComponent(result.component3Pattern, result.icon3.get())
             );
-        else return new TDirectProjCursor(getIconComponent(result.component1Pattern, result.icon1));
+        else cursor = new TDirectProjCursor(getIconComponent(result.component1Pattern, result.icon1.get()));
+        cursor.setSmoothMove(result.isSmoothMove);
+        return cursor;
     }
     /*public static TRenderComponent composeHeadTagComponent(ComponentBuilder.BuilderResult result) {
         return null;
