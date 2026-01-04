@@ -42,12 +42,6 @@ public class TDir3BodyCursor extends TDirectProjCursor {
         this.component3 = component3;
     }
 
-    public TDir3BodyCursor(IconComponent component1, IconComponent component2, IconComponent component3, float definedScale) {
-        super(component1, definedScale);
-        this.component2 = component2;
-        this.component3 = component3;
-    }
-
     public void setFaceCenter(boolean shouldFaceCenter) {
         this.shouldFaceCenter = shouldFaceCenter;
     }

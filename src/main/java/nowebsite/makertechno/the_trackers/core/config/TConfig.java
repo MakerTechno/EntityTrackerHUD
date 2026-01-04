@@ -56,7 +56,7 @@ public class TConfig {
     private static final ModConfigSpec.BooleanValue HEAD_FLAT_AVAILABLE = BUILDER
             .comment("Enable longitude icon display")
             .translation("the_trackers.configuration.head_flat_available")
-            .define("Head flat available", true);
+            .define("Head flat available", false);
 
 
     public static final ModConfigSpec.ConfigValue<List<? extends String>> CENTER_RELATIVE_BIND = BUILDER

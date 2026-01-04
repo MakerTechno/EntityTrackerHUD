@@ -27,6 +27,6 @@ public final class TModClient {
     }
     @SubscribeEvent
     public static void regRenderer(@NotNull RegisterGuiLayersEvent event){
-        event.registerBelow(VanillaGuiLayers.PLAYER_HEALTH, TGuiStatics.POINTER, new TGui(Minecraft.getInstance()));
+        event.registerBelow(VanillaGuiLayers.CAMERA_OVERLAYS, TGuiStatics.POINTER, new TGui(Minecraft.getInstance()));
     }
 }

@@ -22,16 +22,21 @@ public class CameraProjector {
         Vector4f target4f = new Vector4f((float) targetPos.x, (float) targetPos.y, (float) targetPos.z, 1.0f)
             .mul(mat);
 
-        if (target4f.w <= 0.0f) {
-            target4f.y = windowHeight;
-            target4f.x = -target4f.x;
-        }
-        float x = (int) ((target4f.x() / target4f.z() * 0.5F + 0.5F) * windowWidth);
-        float y = (int) ((1.0F - (target4f.y() / target4f.z() * 0.5F + 0.5F)) * windowHeight);
+        float x = (int) ((target4f.x() / target4f.w() * 0.5F + 0.5F) * windowWidth);
+        float y = (int) ((1.0F - (target4f.y() / target4f.w() * 0.5F + 0.5F)) * windowHeight);
 
         float distanceToCenter = Vector2f.distance(x, y, (float) (windowWidth*0.5), (float) (windowHeight*0.5));
         float distanceToTarget = Vector3f.distance((float) targetPos.x, (float) targetPos.y, (float) targetPos.z, (float) cameraPos.x, (float) cameraPos.y, (float) cameraPos.z);
 
+        if (target4f.w <= 0.0f) {
+            if (target4f.x < 0) {
+                x = -100;
+                y = -100;
+            } else {
+                x = windowWidth + 100;
+                y = -100;
+            }
+        }
         return new float[]{x, y, distanceToCenter, distanceToTarget};
     }
 

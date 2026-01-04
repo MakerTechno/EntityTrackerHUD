@@ -15,11 +15,14 @@ import nowebsite.makertechno.the_trackers.core.track.TrackersMonitor;
 import nowebsite.makertechno.the_trackers.core.track.WorldSingletonTracker;
 
 //@EventBusSubscriber(Dist.CLIENT)
+/** An example adding death point tag to world. */
 public class TestAdd1 {
     private static final ComponentBuilder.BuilderResult posTo0 = new ComponentBuilder()
             .setComponentType(ComponentBuilder.ComponentType.DIRECT)
             .setIcon1(Items.DIAMOND)
             .setIcon1Pattern("rainbow:2")
+            .defineScaleMultiple(scale -> (float) (1F + Math.min(scale / 2.2, 1f) * Math.min(scale / 2.2, 1f)))
+            .setSmoothMove(true)
             .build();
 
     private static Vec3 pos;

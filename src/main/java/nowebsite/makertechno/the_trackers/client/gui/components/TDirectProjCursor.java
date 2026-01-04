@@ -51,11 +51,6 @@ public class TDirectProjCursor extends TAbstractCursor {
         this.component = component;
     }
 
-    public TDirectProjCursor(IconComponent component, float definedScale) {
-        super(definedScale);
-        this.component = component;
-    }
-
     @Override
     public void flush() {
         super.flush();
@@ -73,6 +68,11 @@ public class TDirectProjCursor extends TAbstractCursor {
         );
     }
 
+    @Override
+    protected float calculateScale(float[] projScrPoint) {
+        return super.calculateScale(projScrPoint) / projScrPoint[3] * 15;
+    }
+
     protected void updateTransformer(float[] projScrPoint, float partialTick, float scale) {
         if (smoothMove) transformer.makeSmooth(projScrPoint[0], projScrPoint[1], partialTick);
         else transformer.set(projScrPoint[0], projScrPoint[1]);
@@ -84,7 +84,6 @@ public class TDirectProjCursor extends TAbstractCursor {
     }
 
     protected void renderInsights(GuiGraphics graphics, float[] projScrPoint, float partialTick, float scale) {
-        scale = scale / projScrPoint[3] * 15;
         Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();
         matrix4fStack.pushMatrix();
         translateAndRenderComponents(graphics, component, matrix4fStack, partialTick, scale);

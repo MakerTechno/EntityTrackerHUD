@@ -45,12 +45,6 @@ public class TRelativeCursor extends TAbstractCursor {
         this.entityIconComponent = entityIconComponent;
     }
 
-    public TRelativeCursor(IconComponent pointerIconComponent, IconComponent entityIconComponent, float definedScale) {
-        super(definedScale);
-        this.pointerIconComponent = pointerIconComponent;
-        this.entityIconComponent = entityIconComponent;
-    }
-
     @Override
     public void flush() {
         super.flush();

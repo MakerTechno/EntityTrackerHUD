@@ -7,19 +7,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import nowebsite.makertechno.the_trackers.core.config.TConfig;
 
+import java.util.function.Function;
+
 public abstract class TAbstractCursor implements TRenderComponent{
 
     protected float scaleCached;
-    protected float definedScale;
     protected boolean smoothMove = true;
     protected boolean affectedByPlayerScale = true;
+    protected Function<Float, Float> multiple = scale -> scale ;
 
-    protected TAbstractCursor(float definedScale) {
-        this.scaleCached = (float) TConfig.scale;
-        this.definedScale = definedScale;
-    }
     protected TAbstractCursor() {
-        this(1F);
+        this.scaleCached = (float) TConfig.scale;
     }
 
     public void setSmoothMove(boolean smoothMove) {
@@ -28,6 +26,10 @@ public abstract class TAbstractCursor implements TRenderComponent{
 
     public void setAffectedByPlayerScale(boolean affectedByPlayerScale) {
         this.affectedByPlayerScale = affectedByPlayerScale;
+    }
+
+    public void setMultiple(Function<Float, Float> multiple) {
+        this.multiple = multiple;
     }
 
     @Override
@@ -40,15 +42,17 @@ public abstract class TAbstractCursor implements TRenderComponent{
 
         float[] projScrPoint = getProjectScr(graphics, player, target);
 
-        float scale = (affectedByPlayerScale ? scaleCached : 1) * definedScale;
+        float scale = multiple.apply(calculateScale(projScrPoint));
 
         updateTransformer(projScrPoint, partialTick, scale);
         RenderSystemInit(getAlpha(projScrPoint));
         renderInsights(graphics, projScrPoint, partialTick, scale);
         RenderSystemRestore();
     }
-
     protected abstract float[] getProjectScr(GuiGraphics graphics, Player player, Vec3 target);
+    protected float calculateScale(float[] projScrPoint) {
+        return affectedByPlayerScale ? scaleCached : 1;
+    }
     protected abstract void updateTransformer(float[] projScrPoint, float partialTick, float scale);
     protected abstract float getAlpha(float[] projScrPoint);
     protected abstract void renderInsights(GuiGraphics graphics, float[] projScrPoint, float partialTick, float scale);
