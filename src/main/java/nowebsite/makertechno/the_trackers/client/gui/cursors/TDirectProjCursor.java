@@ -1,4 +1,4 @@
-package nowebsite.makertechno.the_trackers.client.gui.components;
+package nowebsite.makertechno.the_trackers.client.gui.cursors;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import nowebsite.makertechno.the_trackers.client.gui.icons.IconComponent;
+import nowebsite.makertechno.the_trackers.client.gui.components.IconComponent;
 import nowebsite.makertechno.the_trackers.core.track.algorithm.CameraProjector;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4fStack;

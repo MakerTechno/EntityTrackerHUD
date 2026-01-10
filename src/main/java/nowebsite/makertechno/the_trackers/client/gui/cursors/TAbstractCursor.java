@@ -1,4 +1,4 @@
-package nowebsite.makertechno.the_trackers.client.gui.components;
+package nowebsite.makertechno.the_trackers.client.gui.cursors;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;

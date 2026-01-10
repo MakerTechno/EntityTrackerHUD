@@ -1,10 +1,10 @@
 package nowebsite.makertechno.the_trackers.client.gui.provider;
 
 import nowebsite.makertechno.the_trackers.api.component.ComponentBuilder;
-import nowebsite.makertechno.the_trackers.client.gui.components.*;
-import nowebsite.makertechno.the_trackers.client.gui.icons.IconComponent;
-import nowebsite.makertechno.the_trackers.client.gui.icons.IconComponentFactory;
-import nowebsite.makertechno.the_trackers.client.gui.icons.Icon;
+import nowebsite.makertechno.the_trackers.client.gui.cursors.*;
+import nowebsite.makertechno.the_trackers.client.gui.components.IconComponent;
+import nowebsite.makertechno.the_trackers.client.gui.components.IconComponentFactory;
+import nowebsite.makertechno.the_trackers.client.gui.components.Icon;
 import org.jetbrains.annotations.Nullable;
 
 public final class BuilderResultComposer {

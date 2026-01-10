@@ -3,7 +3,7 @@ package nowebsite.makertechno.the_trackers.core.track.states;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import nowebsite.makertechno.the_trackers.client.gui.components.TRenderComponent;
+import nowebsite.makertechno.the_trackers.client.gui.cursors.TRenderComponent;
 
 public class TrackerStepState {
     private Vec3 currentPos;

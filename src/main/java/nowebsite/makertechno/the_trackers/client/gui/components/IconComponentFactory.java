@@ -1,4 +1,4 @@
-package nowebsite.makertechno.the_trackers.client.gui.icons;
+package nowebsite.makertechno.the_trackers.client.gui.components;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

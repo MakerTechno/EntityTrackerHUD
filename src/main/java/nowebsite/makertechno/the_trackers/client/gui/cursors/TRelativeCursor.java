@@ -1,12 +1,12 @@
-package nowebsite.makertechno.the_trackers.client.gui.components;
+package nowebsite.makertechno.the_trackers.client.gui.cursors;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import nowebsite.makertechno.the_trackers.client.gui.icons.IconComponent;
-import nowebsite.makertechno.the_trackers.client.gui.icons.Icon;
+import nowebsite.makertechno.the_trackers.client.gui.components.IconComponent;
+import nowebsite.makertechno.the_trackers.client.gui.components.Icon;
 import nowebsite.makertechno.the_trackers.core.config.TConfig;
 import nowebsite.makertechno.the_trackers.core.track.algorithm.RelativeProjector;
 import org.joml.Matrix4fStack;
@@ -91,12 +91,12 @@ public class TRelativeCursor extends TAbstractCursor {
         stack.popMatrix();
         RenderSystem.applyModelViewMatrix();
     }
-    
+
     protected void translateAndRenderComponents(
             GuiGraphics graphics,
             float[] projScrPoint,
             IconComponent pointerComponent,
-            IconComponent entityComponent, 
+            IconComponent entityComponent,
             Matrix4fStack stack,
             float partialTick,
             float scale

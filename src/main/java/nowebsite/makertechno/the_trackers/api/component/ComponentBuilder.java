@@ -3,8 +3,8 @@ package nowebsite.makertechno.the_trackers.api.component;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import nowebsite.makertechno.the_trackers.client.gui.icons.IconComponentFactory;
-import nowebsite.makertechno.the_trackers.client.gui.icons.Icon;
+import nowebsite.makertechno.the_trackers.client.gui.components.IconComponentFactory;
+import nowebsite.makertechno.the_trackers.client.gui.components.Icon;
 import nowebsite.makertechno.the_trackers.client.gui.provider.TextureCache;
 import nowebsite.makertechno.the_trackers.core.tool.TextureBuildTool;
 

@@ -1,4 +1,4 @@
-package nowebsite.makertechno.the_trackers.client.gui.components;
+package nowebsite.makertechno.the_trackers.client.gui.cursors;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.entity.player.Player;

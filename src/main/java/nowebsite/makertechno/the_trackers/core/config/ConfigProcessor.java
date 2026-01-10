@@ -2,13 +2,13 @@ package nowebsite.makertechno.the_trackers.core.config;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.entity.EntityType;
-import nowebsite.makertechno.the_trackers.client.gui.components.TDir3BodyCursor;
-import nowebsite.makertechno.the_trackers.client.gui.components.TDirectProjCursor;
-import nowebsite.makertechno.the_trackers.client.gui.components.TRelativeCursor;
-import nowebsite.makertechno.the_trackers.client.gui.components.TRenderComponent;
-import nowebsite.makertechno.the_trackers.client.gui.icons.Icon;
-import nowebsite.makertechno.the_trackers.client.gui.icons.IconComponentFactory;
-import nowebsite.makertechno.the_trackers.client.gui.icons.IconComponent;
+import nowebsite.makertechno.the_trackers.client.gui.cursors.TDir3BodyCursor;
+import nowebsite.makertechno.the_trackers.client.gui.cursors.TDirectProjCursor;
+import nowebsite.makertechno.the_trackers.client.gui.cursors.TRelativeCursor;
+import nowebsite.makertechno.the_trackers.client.gui.cursors.TRenderComponent;
+import nowebsite.makertechno.the_trackers.client.gui.components.Icon;
+import nowebsite.makertechno.the_trackers.client.gui.components.IconComponentFactory;
+import nowebsite.makertechno.the_trackers.client.gui.components.IconComponent;
 import nowebsite.makertechno.the_trackers.client.gui.provider.TextureCache;
 import nowebsite.makertechno.the_trackers.core.event.TModClient;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public final class ConfigProcessor {
-    
+
     private static final Pair<EntityType<?>, Supplier<? extends TRenderComponent>> OF_EMPTY =new Pair<>(null, TRenderComponent::ofNull);
 
     public static boolean isValidEntityBindCRCursor(Object o) {

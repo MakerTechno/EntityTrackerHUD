@@ -7,7 +7,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import nowebsite.makertechno.the_trackers.TheTrackers;
-import nowebsite.makertechno.the_trackers.client.gui.components.TRenderComponent;
+import nowebsite.makertechno.the_trackers.client.gui.cursors.TRenderComponent;
 import nowebsite.makertechno.the_trackers.core.event.TModClient;
 import nowebsite.makertechno.the_trackers.core.track.EntityTracker;
 import nowebsite.makertechno.the_trackers.core.track.algorithm.ProjectAlgorithmLib;

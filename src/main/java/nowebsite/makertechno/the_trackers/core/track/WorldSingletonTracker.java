@@ -8,7 +8,7 @@ import nowebsite.makertechno.the_trackers.api.component.ComponentBuilder;
 import nowebsite.makertechno.the_trackers.api.component.SimpleComponent;
 import nowebsite.makertechno.the_trackers.api.component.StaticComponent;
 import nowebsite.makertechno.the_trackers.client.gui.TGui;
-import nowebsite.makertechno.the_trackers.client.gui.components.TRenderComponent;
+import nowebsite.makertechno.the_trackers.client.gui.cursors.TRenderComponent;
 import nowebsite.makertechno.the_trackers.client.gui.provider.BuilderResultComposer;
 import nowebsite.makertechno.the_trackers.core.track.states.ControllableTrackerState;
 import nowebsite.makertechno.the_trackers.core.track.states.ControllableTrackerStateEx;

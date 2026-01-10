@@ -1,4 +1,4 @@
-package nowebsite.makertechno.the_trackers.client.gui.icons;
+package nowebsite.makertechno.the_trackers.client.gui.components;
 
 import net.minecraft.client.gui.GuiGraphics;
 import nowebsite.makertechno.the_trackers.client.gui.provider.TextureCache;

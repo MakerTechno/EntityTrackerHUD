@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.entity.PartEntity;
 import nowebsite.makertechno.the_trackers.client.gui.TGui;
-import nowebsite.makertechno.the_trackers.client.gui.components.TRenderComponent;
+import nowebsite.makertechno.the_trackers.client.gui.cursors.TRenderComponent;
 import nowebsite.makertechno.the_trackers.core.config.TConfig;
 import nowebsite.makertechno.the_trackers.core.track.states.TrackerStepState;
 import org.jetbrains.annotations.NotNull;

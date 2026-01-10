@@ -1,9 +1,9 @@
-package nowebsite.makertechno.the_trackers.client.gui.components;
+package nowebsite.makertechno.the_trackers.client.gui.cursors;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.Mth;
-import nowebsite.makertechno.the_trackers.client.gui.icons.IconComponent;
+import nowebsite.makertechno.the_trackers.client.gui.components.IconComponent;
 import org.joml.Matrix4fStack;
 
 /**
@@ -69,10 +69,10 @@ public class TDir3BodyCursor extends TDirectProjCursor {
 
     @Override
     protected void translateAndRenderComponents(
-            GuiGraphics graphics, 
-            IconComponent component, 
-            Matrix4fStack stack, 
-            float partialTick, 
+            GuiGraphics graphics,
+            IconComponent component,
+            Matrix4fStack stack,
+            float partialTick,
             float scale
     ) {
 
