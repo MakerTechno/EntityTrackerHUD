@@ -7,7 +7,7 @@ import nowebsite.makertechno.the_trackers.client.gui.cursors.TDirectProjCursor;
 import nowebsite.makertechno.the_trackers.client.gui.cursors.TRelativeCursor;
 import nowebsite.makertechno.the_trackers.client.gui.cursors.TRenderComponent;
 import nowebsite.makertechno.the_trackers.client.gui.components.Icon;
-import nowebsite.makertechno.the_trackers.client.gui.components.IconComponentFactory;
+import nowebsite.makertechno.the_trackers.client.gui.components.BasicComponentFactory;
 import nowebsite.makertechno.the_trackers.client.gui.components.IconComponent;
 import nowebsite.makertechno.the_trackers.client.gui.provider.TextureCache;
 import nowebsite.makertechno.the_trackers.core.event.TModClient;
@@ -39,7 +39,7 @@ public final class ConfigProcessor {
         if (split.length == 4) {
             String[] patterns = split[3].split("&");
             if (patterns.length != 2) return false;
-            return IconComponentFactory.hasElementPattern(patterns[0]) && IconComponentFactory.hasElementPattern(patterns[1]);
+            return BasicComponentFactory.hasElementPattern(patterns[0]) && BasicComponentFactory.hasElementPattern(patterns[1]);
         }
 
         return true;
@@ -67,19 +67,19 @@ public final class ConfigProcessor {
                     if (split.length == 4) {
                         String[] patterns = split[3].split("&");
                         if (patterns.length == 2 &&
-                                IconComponentFactory.hasElementPattern(patterns[0]) &&
-                                IconComponentFactory.hasElementPattern(patterns[1])) {
+                                BasicComponentFactory.hasElementPattern(patterns[0]) &&
+                                BasicComponentFactory.hasElementPattern(patterns[1])) {
                             supplier = () -> new TRelativeCursor(
-                                    IconComponentFactory.getIconComponent(pointerIcon, patterns[0]).get(),
-                                    IconComponentFactory.getIconComponent(icon, patterns[1]).get()
+                                    BasicComponentFactory.getIconComponent(pointerIcon, patterns[0]).get(),
+                                    BasicComponentFactory.getIconComponent(icon, patterns[1]).get()
                             );
                             return new Pair<EntityType<?>, Supplier<? extends TRenderComponent>>(entityType, supplier);
                         }
                     }
 
                     supplier = () -> new TRelativeCursor(
-                            IconComponentFactory.getDefault(pointerIcon).get(),
-                            IconComponentFactory.getDefault(icon).get()
+                            BasicComponentFactory.getDefault(pointerIcon).get(),
+                            BasicComponentFactory.getDefault(icon).get()
                     );
                     return new Pair<EntityType<?>, Supplier<? extends TRenderComponent>>(entityType, supplier);
                 })
@@ -108,7 +108,7 @@ public final class ConfigProcessor {
 
         if (!(style[0].equals("normal") || style[0].equals("3body"))) return false;
 
-        if (split.length == 3) return IconComponentFactory.hasElementPattern(split[2]);
+        if (split.length == 3) return BasicComponentFactory.hasElementPattern(split[2]);
 
         return true;
     }
@@ -132,8 +132,8 @@ public final class ConfigProcessor {
                         if (icon.equals(Icon.NONE)) return OF_EMPTY;
                     }
                     Supplier<IconComponent> cps;
-                    if (split.length == 3) cps = IconComponentFactory.getIconComponent(icon, split[2]);
-                    else cps = IconComponentFactory.getDefault(icon);
+                    if (split.length == 3) cps = BasicComponentFactory.getIconComponent(icon, split[2]);
+                    else cps = BasicComponentFactory.getDefault(icon);
 
                     Supplier<? extends TRenderComponent> supplier;
                     if (style[0].equals("3body")){

@@ -69,6 +69,11 @@ public class TDirectProjCursor extends TAbstractCursor {
     }
 
     @Override
+    protected float getScrDistance(float[] projectScrPoint) {
+        return projectScrPoint[3];
+    }
+
+    @Override
     protected float calculateScale(float[] projScrPoint) {
         return super.calculateScale(projScrPoint) / projScrPoint[3] * 15;
     }

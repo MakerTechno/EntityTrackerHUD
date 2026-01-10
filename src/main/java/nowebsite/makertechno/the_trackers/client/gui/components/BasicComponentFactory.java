@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class IconComponentFactory {
+public class BasicComponentFactory {
 
     @Contract(value = "_ -> new", pure = true)
     public static @NotNull Supplier<IconComponent> getDefault(Icon icon) {

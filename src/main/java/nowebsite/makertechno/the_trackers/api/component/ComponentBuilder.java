@@ -3,12 +3,13 @@ package nowebsite.makertechno.the_trackers.api.component;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import nowebsite.makertechno.the_trackers.client.gui.components.IconComponentFactory;
+import nowebsite.makertechno.the_trackers.client.gui.components.BasicComponentFactory;
 import nowebsite.makertechno.the_trackers.client.gui.components.Icon;
 import nowebsite.makertechno.the_trackers.client.gui.provider.TextureCache;
 import nowebsite.makertechno.the_trackers.core.tool.TextureBuildTool;
 
 import javax.annotation.Nullable;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -28,7 +29,8 @@ public class ComponentBuilder {
     private boolean isSmoothMove = false;
     private boolean affectedByPlayerSettingsScale = false;
     private boolean autoLifecycle = false;
-    private Function<Float, Float> definedScaleMultiple = scale -> scale;
+    private Function<Float, Float> rescaleFunc = scale -> scale;
+    private BiFunction<Float, Float, Float> alphaTransformer = (distance, alpha) -> alpha;
 
 
     public ComponentBuilder() {}
@@ -77,7 +79,7 @@ public class ComponentBuilder {
     }
 
     /**
-     * 设置图标1的容器。默认为null(获取时使用default)，设置请参见{@link IconComponentFactory}
+     * 设置图标1的容器。默认为null(获取时使用default)，设置请参见{@link BasicComponentFactory}
      */
     public ComponentBuilder setIcon1Pattern(String pattern) {
         this.component1Pattern = pattern;
@@ -104,7 +106,7 @@ public class ComponentBuilder {
     }
 
     /**
-     * 设置图标1的容器。默认为null(获取时使用default)，设置请参见{@link IconComponentFactory}
+     * 设置图标1的容器。默认为null(获取时使用default)，设置请参见{@link BasicComponentFactory}
      */
     public ComponentBuilder setIcon2Pattern(String pattern) {
         this.component2Pattern = pattern;
@@ -131,7 +133,7 @@ public class ComponentBuilder {
     }
 
     /**
-     * 设置图标1的容器。默认为null(获取时使用default)，设置请参见{@link IconComponentFactory}
+     * 设置图标1的容器。默认为null(获取时使用default)，设置请参见{@link BasicComponentFactory}
      */
     public ComponentBuilder setIcon3Pattern(String pattern) {
         this.component3Pattern = pattern;
@@ -165,8 +167,16 @@ public class ComponentBuilder {
     /**
      * 设置乘数再运算器，一般建议在这里对最终大小进行区间移动和缩放。
      * */
-    public ComponentBuilder defineScaleMultiple(Function<Float, Float> definedScaleMultipleApplier) {
-        this.definedScaleMultiple = definedScaleMultipleApplier;
+    public ComponentBuilder defineRescale(Function<Float, Float> rescale) {
+        this.rescaleFunc = rescale;
+        return this;
+    }
+
+    /**
+     * 设置透明度再运算器。
+     * */
+    public ComponentBuilder defineAlphaTransformer(BiFunction<Float, Float, Float> alphaTransformer) {
+        this.alphaTransformer = alphaTransformer;
         return this;
     }
 
@@ -183,7 +193,8 @@ public class ComponentBuilder {
                 isSmoothMove,
                 autoLifecycle,
                 affectedByPlayerSettingsScale,
-                definedScaleMultiple
+                rescaleFunc,
+                alphaTransformer
         );
     }
 
@@ -196,7 +207,8 @@ public class ComponentBuilder {
         public final ComponentType type;
         public final Supplier<Icon> icon1, icon2, icon3;
         public final boolean isSmoothMove, autoLifecycle, affectedBySettings;
-        public final Function<Float, Float> multiple;
+        public final Function<Float, Float> rescale;
+        public final BiFunction<Float, Float, Float>  transformAlpha;
         private BuilderResult(
                 ComponentType type,
                 Supplier<Icon> icon1,
@@ -209,7 +221,8 @@ public class ComponentBuilder {
                 boolean isSmoothMove,
                 boolean autoLifecycle,
                 boolean affectedBySettings,
-                Function<Float, Float> multiple
+                Function<Float, Float> rescale,
+                BiFunction<Float, Float, Float> transformAlpha
         ) {
             this.type = type;
             this.icon1 = icon1;
@@ -222,7 +235,8 @@ public class ComponentBuilder {
             this.isSmoothMove = isSmoothMove;
             this.autoLifecycle = autoLifecycle;
             this.affectedBySettings = affectedBySettings;
-            this.multiple = multiple;
+            this.rescale = rescale;
+            this.transformAlpha = transformAlpha;
         }
     }
 

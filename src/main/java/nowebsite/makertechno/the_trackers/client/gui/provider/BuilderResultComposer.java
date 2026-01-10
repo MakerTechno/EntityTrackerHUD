@@ -3,7 +3,7 @@ package nowebsite.makertechno.the_trackers.client.gui.provider;
 import nowebsite.makertechno.the_trackers.api.component.ComponentBuilder;
 import nowebsite.makertechno.the_trackers.client.gui.cursors.*;
 import nowebsite.makertechno.the_trackers.client.gui.components.IconComponent;
-import nowebsite.makertechno.the_trackers.client.gui.components.IconComponentFactory;
+import nowebsite.makertechno.the_trackers.client.gui.components.BasicComponentFactory;
 import nowebsite.makertechno.the_trackers.client.gui.components.Icon;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,7 +18,8 @@ public final class BuilderResultComposer {
         };
         component.setSmoothMove(result.isSmoothMove);
         component.setAffectedByPlayerScale(result.affectedBySettings);
-        component.setMultiple(result.multiple);
+        component.setRescale(result.rescale);
+        component.setTransformAlpha(result.transformAlpha);
         return component;
     }
 
@@ -61,7 +62,7 @@ public final class BuilderResultComposer {
 
     private static IconComponent getIconComponent(@Nullable String pattern, Icon icon) {
         return pattern == null
-                ? IconComponentFactory.getDefault(icon).get()
-                : IconComponentFactory.getIconComponent(icon, pattern).get();
+                ? BasicComponentFactory.getDefault(icon).get()
+                : BasicComponentFactory.getIconComponent(icon, pattern).get();
     }
 }

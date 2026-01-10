@@ -63,6 +63,11 @@ public class TRelativeCursor extends TAbstractCursor {
     }
 
     @Override
+    protected float getScrDistance(float[] projectScrPoint) {
+        return projectScrPoint[1];
+    }
+
+    @Override
     protected void updateTransformer(float[] projScrPoint, float partialTick, float scale) {
         float radius = (float) (-projScrPoint[0] - Math.PI/2);
         Icon pointer = pointerIconComponent.getIcon();
